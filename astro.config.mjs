@@ -28,6 +28,8 @@ export default defineConfig({
             name: 'photos',
             label: 'Photos',
             folder: 'src/pages/photos',
+            slug: '{{year}}-{{month}}-{{day}}_{{age}}',
+            summary: '{{year}}-{{month}}-{{day}}_{{age}} Author: {{commit_author}} Version: {{version}}',
             create: true,
             delete: true,
             fields: [
