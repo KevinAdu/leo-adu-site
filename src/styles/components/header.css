@@ -1,0 +1,36 @@
+.header-subitem {
+  display: flex;
+  flex-grow: 0;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-text-lighter);
+  font-size: initial;
+  padding: 0.5rem;
+}
+.header-subitem:hover {
+  color: var(--theme-accent);;
+}
+
+@media (max-width: 32em) {
+  .header-subitem {
+    display: none;
+  }
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  max-width: 100%;
+  display: flex;
+  flex-grow: 1;
+}
+
+.logo {
+  transform: translateY(0.25rem);
+}
+
+h1 a {
+  text-decoration: none;
+  display: inline-flex;
+}

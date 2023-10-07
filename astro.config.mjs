@@ -3,19 +3,22 @@ import NetlifyCMS from 'astro-netlify-cms';
 import netlify from "@astrojs/netlify/functions";
 
 const ageOptions = [
-  {label: 'Before Birth', value: 'beforeBirth'},
-  {label: '1 Month Old', value: '1month'},
-  {label: '2 Months Old', value: '2months'},
-  {label: '3 Months Old', value: '3months'},
-  {label: '4 Months Old', value: '4months'},
-  {label: '5 Months Old', value: '5months'},
-  {label: '6 Months Old', value: '6months'},
+  'Before Birth', 
+  '1 Month Old', 
+  '2 Months Old', 
+  '3 Months Old', 
+  '4 Months Old', 
+  '5 Months Old', 
+  '6 Months Old', 
 ];
 
 // https://astro.build/config
 export default defineConfig({
   output: "server",
   adapter: netlify(),
+  image: {
+    domains: ["astro.build"],
+  },
   integrations: [
     NetlifyCMS({
       config: {
@@ -29,10 +32,11 @@ export default defineConfig({
             label: 'Photos',
             folder: 'src/pages/photos',
             slug: '{{year}}-{{month}}-{{day}}_{{age}}',
-            summary: '{{commit_date}}_{{age}} Author: {{commit_author}}',
+            summary: '{{title}} Age: {{age}} Author: {{commit_author}}',
             create: true,
             delete: true,
             fields: [
+              { name: 'title', widget: 'string', label: 'Title' },
               { name: 'photo', widget: 'image', label: 'Photo' },
               { name: 'caption', widget: 'text', label: 'Caption' },
               { name: 'publish-date', widget: 'datetime', label: 'Publish Date' },

@@ -1,0 +1,66 @@
+:is(h1, h2, h3, h4, h5, h6) {
+	margin-bottom: 1.38rem;
+	font-weight: 400;
+	line-height: 1.3;
+}
+
+:is(h1, h2) {
+	max-width: 40ch;
+}
+
+:is(h2, h3):not(:first-child) {
+	margin-top: 3rem;
+}
+
+h1 {
+	font-size: clamp(2.488rem, 1.924rem + 1.41vw, 3.052rem);
+}
+
+h2 {
+	font-size: clamp(2.074rem, 1.707rem + 0.9175vw, 2.441rem);
+}
+
+h3 {
+	font-size: clamp(1.728rem, 1.503rem + 0.5625vw, 1.953rem);
+}
+
+h4 {
+	font-size: clamp(1.44rem, 1.317rem + 0.3075vw, 1.563rem);
+}
+
+h5 {
+	font-size: clamp(1.2rem, 1.15rem + 0.125vw, 1.25rem);
+}
+
+p {
+	color: var(--theme-text-light);
+}
+
+small,
+.text_small {
+	font-size: 0.833rem;
+}
+
+a {
+	color: var(--theme-accent);
+	font-weight: 400;
+	text-underline-offset: 0.08em;
+	text-decoration: none;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+a:hover,
+a:focus {
+	text-decoration: underline;
+}
+
+a:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 0.25em;
+}
+
+strong {
+	font-weight: 600;
+	color: inherit;
+}

@@ -1,0 +1,28 @@
+@import './base/variables.css';
+@import './base/base.css';
+@import './base/typography.css';
+@import './layouts/header.css';
+@import './components/header.css';
+
+
+.intro {
+  padding-bottom: 4rem;
+  margin-bottom: 2rem;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+img.cover {
+	width: 100%;
+	max-height: 50vh;
+	object-fit: cover;
+}
+

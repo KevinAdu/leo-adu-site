@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+
+export interface Props {
+	post: any;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="post-preview">
+	<Image src={post.frontmatter.photo} alt="" height={90} width="90"/>
+</article>
