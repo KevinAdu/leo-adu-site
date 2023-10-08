@@ -1,5 +1,5 @@
 ---
-title: First Photo
+title: First Photo!
 photo: /img_7067.jpeg
 caption: |-
   2023/5/27 (7週)
