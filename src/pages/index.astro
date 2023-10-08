@@ -21,7 +21,7 @@ allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf()
 	<body>
 		<Header />
 			<main>
-				<section aria-label="Blog post list">
+				<section class="photos-grid" aria-label="Photo Post List">
 					{allPosts.map((p) => <PostPreview post={p} />)}
 				</section>
 			</main>		
