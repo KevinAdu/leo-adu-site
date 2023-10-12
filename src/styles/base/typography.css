@@ -1,7 +1,26 @@
+@font-face {
+  font-family: 'Helvetica Neue 97 Black Condensed';
+  src: url('/fonts/Helvetica Neue 97 Black Condensed.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova Medium';
+  src: url('/fonts/Proxima Nova Medium.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 :is(h1, h2, h3, h4, h5, h6) {
-	margin-bottom: 1.38rem;
-	font-weight: 400;
-	line-height: 1.3;
+	margin: 3rem 0 1.38rem;
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: 'Proxima Nova Medium';
 }
 
 :is(h1, h2) {
@@ -13,11 +32,11 @@
 }
 
 h1 {
-	font-size: clamp(2.488rem, 1.924rem + 1.41vw, 3.052rem);
+	font-size: clamp(1.953rem, 1.563rem + 1vw, 3.052rem);
 }
 
 h2 {
-	font-size: clamp(2.074rem, 1.707rem + 0.9175vw, 2.441rem);
+	font-size: clamp(1.563rem, 1.25rem + 0.8vw, 2.441rem);
 }
 
 h3 {
@@ -42,7 +61,6 @@ small,
 }
 
 a {
-	color: var(--theme-accent);
 	font-weight: 400;
 	text-underline-offset: 0.08em;
 	text-decoration: none;
