@@ -11,7 +11,7 @@ let description = 'Showing Leos life in pictures';
 let permalink = 'https://leoadu.com/';
 
 let allPosts = await Astro.glob('./photos/*.md');
-allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+allPosts = allPosts.sort((a, b) => new Date(a.frontmatter.publishDate).valueOf() - new Date(b.frontmatter.publishDate).valueOf());
 ---
 
 <html lang="en">

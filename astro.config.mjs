@@ -22,6 +22,10 @@ export default defineConfig({
   integrations: [
     NetlifyCMS({
       config: {
+        i18n: {
+          structure: 'multiple_folders',
+          locales: ['ja', 'en']
+        },
         backend: {
           name: 'git-gateway',
           branch: 'master',
@@ -33,15 +37,16 @@ export default defineConfig({
             folder: 'src/pages/photos',
             slug: '{{year}}-{{month}}-{{day}}_{{title}}',
             summary: '{{title}} - Age: {{age}} Author: {{commit_author}}',
+            i18n: true,
             create: true,
             delete: true,
             fields: [
-              { name: 'title', widget: 'string', label: 'Title' },
-              { name: 'photo', widget: 'image', label: 'Photo' },
-              { name: 'caption', widget: 'text', label: 'Caption' },
-              { name: 'publish-date', widget: 'datetime', label: 'Publish Date' },
-              { name: 'age', widget: 'select', label: 'Age', options: ageOptions, default: ageOptions[0] },
-              { name: 'tags', widget: 'list', label: 'Tags' },
+              { name: 'title', widget: 'string', label: 'Title', i18n: true },
+              { name: 'photo', widget: 'image', label: 'Photo', i18n: 'duplicate' },
+              { name: 'caption', widget: 'text', label: 'Caption', i18n: true },
+              { name: 'publish-date', widget: 'datetime', label: 'Publish Date', i18n: 'duplicate' },
+              { name: 'age', widget: 'select', label: 'Age', options: ageOptions, default: ageOptions[0], i18n: 'duplicate' },
+              { name: 'tags', widget: 'list', label: 'Tags', i18n: true },
             ],
           },
         ],
