@@ -1,0 +1,4 @@
+# 200! --> 200 means rewrite instead of redirect, ! means overwrite the Hugo generated index.html alias
+# EN language rewrites
+/ /en  302  Language=en
+

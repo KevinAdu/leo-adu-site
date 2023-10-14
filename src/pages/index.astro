@@ -7,7 +7,6 @@ const allPosts = await getCollection('photos');
 ---
 
 <Layout>
-  <meta http-equiv="refresh" content="0;url=/ja/" />
   <main>
     <section class="photos-grid" aria-label="Photo Post List">
       {allPosts.map((p) => <PostPreview post={p} />)}
