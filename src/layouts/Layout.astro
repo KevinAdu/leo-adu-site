@@ -1,23 +1,23 @@
 ---
-interface Props {
-	title: string;
-}
+import BaseHead from '../components/BaseHead.astro';
+import { getLangFromUrl } from '../i18n/utils';
+import { siteConfig } from '../config';
+import Header from '../components/Header.astro';
 
-const { title } = Astro.props;
+let { title } = siteConfig;
+let description = 'Showing Leos life in pictures';
+let permalink = 'https://leoadu.com/';
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-    <meta http-equiv="refresh" content="0;url=/ja/" />
-		<title>{title}</title>
+		<BaseHead {title} {description} {permalink} />
 	</head>
 	<body>
+    <Header />
 		<slot />
 	</body>
 </html>

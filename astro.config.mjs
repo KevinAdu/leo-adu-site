@@ -34,7 +34,7 @@ export default defineConfig({
           {
             name: 'photos',
             label: 'Photos',
-            folder: 'src/pages/photos',
+            folder: 'src/content/photos',
             slug: '{{year}}-{{month}}-{{day}}_{{title}}',
             summary: '{{title}} - Age: {{age}} Author: {{commit_author}}',
             i18n: true,

@@ -1,13 +1,12 @@
 ---
-import { Image } from 'astro:assets';
-
-export interface Props {
-	post: any;
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  post: CollectionEntry<'photos'>;
 }
 
 const { post } = Astro.props;
 ---
 
 <article class="post-preview">
-	<img src={post.frontmatter.photo} alt={post.frontmatter.title} loading="lazy" />
+	<img src={post.data.photo} alt={post.data.title} loading="lazy" />
 </article>

@@ -1,9 +1,13 @@
 ---
 import { siteConfig } from '../config';
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
 ---
 <header class="site-header">
 		<h1>
-			<a href="/">
+			<a href={translatePath("/")}>
 				{siteConfig.title}
 			</a>
 		</h1>
