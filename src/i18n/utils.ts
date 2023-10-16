@@ -1,8 +1,8 @@
 import { ui, defaultLang, showDefaultLang } from './ui';
 
-export function useTranslatedPath(lang: keyof typeof ui) {
-  return function translatePath(path: string, l: string = lang) {
-    return !showDefaultLang && l === defaultLang ? path : `/${l}${path}`
+export function useTranslatedPath(currentLang: keyof typeof ui) {
+  return function translatePath(path: string, lang: string = currentLang) {
+    return !showDefaultLang && lang === defaultLang ? path : `/${lang}${path}`
   }
 }
 

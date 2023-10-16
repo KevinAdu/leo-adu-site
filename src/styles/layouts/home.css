@@ -6,7 +6,7 @@
 .post-preview {
   aspect-ratio: 1;
 }
-img {
+.photos-grid img {
   width: 0;
   height: 0;
   min-height: 100%;

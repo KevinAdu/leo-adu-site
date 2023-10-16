@@ -4,9 +4,16 @@ interface Props {
   post: CollectionEntry<'photos'>;
 }
 
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
 const { post } = Astro.props;
+const translatePath = useTranslatedPath(lang);
+const trimmedSlug = post.slug.slice(2);
 ---
 
 <article class="post-preview">
-	<img src={post.data.photo} alt={post.data.title} loading="lazy" />
+  <a href={translatePath(`/photos${trimmedSlug}`)}>
+    <img src={post.data.photo} alt={post.data.title} loading="lazy" />
+  </a>
 </article>

@@ -12,6 +12,11 @@
   "dependencies": {
     "@astrojs/netlify": "^3.0.2",
     "astro": "^3.2.2",
-    "astro-netlify-cms": "^0.5.4"
+    "astro-netlify-cms": "^0.5.4",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.31",
+    "postcss-nesting": "^12.0.1"
   }
 }

@@ -1,4 +1,8 @@
 ---
+interface Props {
+  noHeader?: boolean;
+}
+
 import BaseHead from '../components/BaseHead.astro';
 import { getLangFromUrl } from '../i18n/utils';
 import { siteConfig } from '../config';
@@ -9,15 +13,16 @@ let description = 'Showing Leos life in pictures';
 let permalink = 'https://leoadu.com/';
 
 const lang = getLangFromUrl(Astro.url);
+const { noHeader } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} transition:animate="slide">
 	<head>
 		<BaseHead {title} {description} {permalink} />
 	</head>
 	<body>
-    <Header />
+    {!noHeader && <Header />}
 		<slot />
 	</body>
 </html>

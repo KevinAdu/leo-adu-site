@@ -1,0 +1,33 @@
+.show-photo-section {
+  margin-top: 1rem;
+}
+
+.show-photo-section * {
+  margin-bottom: 1rem;
+}
+
+.show-photo-section a {
+  display: inline-block;
+
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.show-photo-section img {
+  border-radius: 4px;
+}
+
+.show-photo-section p,
+.show-photo-section time {
+  font-size: 0.8rem;
+}
+
+.show-photo-section p {
+  margin-bottom: 0;
+  white-space: pre;
+}
+
+.show-photo-section time {
+  font-family: 'Proxima Nova Semibold';
+}

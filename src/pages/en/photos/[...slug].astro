@@ -1,0 +1,28 @@
+---
+import { getEntry } from "astro:content";
+import { defaultLang } from "../../../i18n/ui";
+import Layout from '../../../layouts/Layout.astro';
+import { format } from 'date-fns'
+// 1. Get the slug from the incoming server request
+const { slug } = Astro.params;
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+// 2. Query for the entry directly using the request slug
+const entry = await getEntry("photos", `${defaultLang}/${slug}`);
+// 3. Redirect if the entry does not exist
+if (entry === undefined) {
+  return Astro.redirect("/404");
+}
+
+---
+<Layout noHeader>
+  <main>
+    <section class="show-photo-section">
+      <a href="/">← PHOTOS</a>
+      <img src={entry.data.photo} alt={entry.data.title} loading="lazy" width="100%"/>
+      <p>{entry.data.caption}</p>
+      <time>{format(entry.data["publish-date"], 'dd MMM yyyy')}</time>
+    </section>
+  </main>
+</Layout>
