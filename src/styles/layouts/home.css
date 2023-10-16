@@ -3,14 +3,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
 }
-.post-preview {
+
+.post-preview a {
   aspect-ratio: 1;
-}
-.photos-grid img {
-  width: 0;
-  height: 0;
-  min-height: 100%;
-  min-width: 100%;
+  display: block;
+} 
+
+.post-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
   object-fit: cover; /* avoid distortion*/
   border-radius: 4px;
