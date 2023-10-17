@@ -1,3 +1,7 @@
+.home-layout {
+  margin-top: 1.5rem;
+}
+
 .photos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

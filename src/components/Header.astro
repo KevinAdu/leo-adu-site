@@ -6,10 +6,25 @@ const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 ---
 <header class="site-header">
+  <a class="site-header-logo" href={translatePath("/")}>
 		<h1>
-			<a href={translatePath("/")}>
-				{siteConfig.title}
-			</a>
+			{siteConfig.title}
 		</h1>
-    <h2>{siteConfig.subTitle}</h2>
+  </a>
+    <!-- Hamburger icon -->
+    <input class="side-menu" type="checkbox" id="side-menu"/>
+    <label class="hamb" for="side-menu">
+      <span class="hamb-line"></span>
+    </label>
+    <nav class="nav">
+      <ul class="nav-links">
+        <li>
+          <a href="/" class={Astro.url.pathname === "/" ? 'active' : ''}>Photos</a>
+        </li>
+        <li>
+          <a href="/albums" class={Astro.url.pathname === "/albumns" ? 'active' : ''}>Albums</a>
+        </li>
+      </ul>
+    </nav>
+    <h2 class="header-subtitle">{siteConfig.subTitle}</h2>
 </header>
