@@ -34,7 +34,7 @@
   height: 100%;
   position: fixed;
   overflow: hidden;
-  top: 5rem;
+  top: 4.5rem;
   max-height: 0;
   transition: max-height .5s ease-out;
   background-color: var(--theme-bg);
@@ -53,6 +53,7 @@
     padding: 0.5rem;
     color: var(--color-black);
     text-transform: uppercase;
+    border-bottom: 1px #C9C9C9 solid;
 
     &.active {
       color: var(--color-black);
@@ -130,6 +131,7 @@
     display: grid;
     align-items: center;
   }
+
   .nav-links {
     display: inline-block;
     justify-self: right;
@@ -141,6 +143,7 @@
 
     a {
       padding: 0;
+      border-bottom: none;
     }
   }
 
