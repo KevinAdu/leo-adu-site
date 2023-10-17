@@ -3,7 +3,7 @@
 @import './base/typography.css';
 @import './layouts/home.css';
 @import './layouts/show-photo.css';
-@import './layouts/album.css';
+@import './layouts/albums.css';
 @import './components/header.css';
 @import './components/album.css';
 
