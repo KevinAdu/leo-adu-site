@@ -1,0 +1,21 @@
+---
+interface Props {
+  albumInfo: {
+    age: string;
+    count: number;
+    coverImagePath: string;
+  };
+}
+
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { albumInfo } = Astro.props;
+
+---
+
+<article class="album">
+  <img src={albumInfo.coverImagePath} loading="lazy" />
+  <h2>{albumInfo.age}</h2>
+  <p>{albumInfo.count} PHOTOS</p>
+</article>

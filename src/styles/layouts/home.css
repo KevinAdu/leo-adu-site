@@ -1,6 +1,4 @@
-.home-layout {
-  margin-top: 1.5rem;
-}
+
 
 .photos-grid {
   display: grid;
@@ -18,6 +16,5 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  object-fit: cover; /* avoid distortion*/
   border-radius: 4px;
 }

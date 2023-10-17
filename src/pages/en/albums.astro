@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import Album from '../components/Album.astro';
+import Layout from '../../layouts/Layout.astro';
+import Album from '../../components/Album.astro';
 
 const allPosts = await getCollection('photos');
 const ages = allPosts.map(post => post.data.age);

@@ -4,6 +4,9 @@
   display: grid;
   grid-template-columns: auto 1fr;
 }
+.site-header + main {
+  margin-top: 1.5rem;
+} 
 
 .site-header .site-header-logo {
   color: var(--color-black);
