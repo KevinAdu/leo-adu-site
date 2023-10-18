@@ -1,0 +1,16 @@
+.show-album {
+  h2, p {
+    margin-top: 0;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    color: var(--color-red);
+    margin-bottom: 0.5rem;
+  }
+}

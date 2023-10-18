@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Layout from '../../layouts/Layout.astro';
+import PostPreview from "../../components/PostPreview.astro";
+import Navigation from '../../components/Navigation.astro';
+
+const { slug } = Astro.params;
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+
+const albumPhotos = await getCollection("photos", ({ data }) => {
+  return data.age === slug;
+});
+
+if (albumPhotos === undefined) {
+  return Astro.redirect("/404");
+}
+---
+<Layout noHeader>
+  <main class="show-album">
+    <header class="header-nav-link">
+      <a href="/">← ALBUMS</a>
+      <Navigation />
+    </header>
+    
+    <h2>{slug}</h2>
+    <p>{albumPhotos.length} PHOTOS</p>
+    <section class="photos-grid" aria-label="Photo Post List">
+      {albumPhotos.sort((a, b) => a.data['publish-date'].getDate() - b.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
+    </section>
+  </main>
+</Layout>

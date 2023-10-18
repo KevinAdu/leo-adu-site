@@ -1,0 +1,14 @@
+.header-nav-link {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 1rem 0;
+
+  a {
+    display: inline-block;
+
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}

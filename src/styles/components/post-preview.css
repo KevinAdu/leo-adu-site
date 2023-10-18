@@ -1,11 +1,3 @@
-
-
-.photos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-}
-
 .post-preview a {
   aspect-ratio: 1;
   display: block;
