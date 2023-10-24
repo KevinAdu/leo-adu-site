@@ -1,5 +1,5 @@
 ---
-title: Mum's belly on 23rd week
+title: Mum's belly on the 23rd week
 photo: /public/img_7606.jpeg
 caption: |-
   23週のお腹はこれくらい。

@@ -1,5 +1,5 @@
 ---
-title: Mum's belly on 23rd week
+title: Mum's belly on the 23rd week
 photo: /public/img_7606.jpeg
 caption: |-
   Mum's belly on 23rd week is about this size.
