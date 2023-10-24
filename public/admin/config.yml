@@ -1,7 +1,6 @@
 backend:
   name: git-gateway
   branch: master
-media_folder: "/public" # Media files will be stored in the repo under static/images/uploads
 public_folder: "/public"
 media_library:
   name: cloudinary

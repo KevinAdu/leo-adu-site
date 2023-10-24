@@ -3,7 +3,9 @@ import PostPreview from '../../components/PostPreview.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const allPosts = await getCollection('photos');
+const allPosts = await getCollection('photos', (photo) => {
+  return photo.slug.startsWith('en')
+});
 ---
 
 <Layout>

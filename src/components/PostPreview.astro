@@ -16,20 +16,20 @@ const trimmedSlug = post.slug.slice(2);
     <picture>
       <source 
         media="(min-width: 150px)"
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_150/docs${post.data.photo} 150w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/docs${post.data.photo} 300w`
+        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_150/${post.data.photo.split('/').pop()} 150w, 
+        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/${post.data.photo.split('/').pop()} 300w`
         sizes="100vw"
       />
       <source 
         media="(min-width: 400px)"
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/docs${post.data.photo} 400w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_800/docs${post.data.photo} 800w`
+        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()} 400w, 
+        https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_800/${post.data.photo.split('/').pop()} 800w`
         sizes="100vw"
       />
       <img
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/docs${post.data.photo} 400w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/docs${post.data.photo} 150w`
-        src=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/docs${post.data.photo}`
+        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()} 400w, 
+        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/${post.data.photo.split('/').pop()} 150w`
+        src=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()}`
         alt={post.data.title}
         sizes="100vw" 
         loading="lazy"

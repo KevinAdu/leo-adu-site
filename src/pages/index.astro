@@ -3,13 +3,15 @@ import PostPreview from '../components/PostPreview.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-const allPosts = await getCollection('photos');
+const allPosts = await getCollection('photos', (photo) => {
+  return !photo.slug.startsWith('en')
+});
 ---
 
 <Layout>
   <main class="home-layout">
     <section class="photos-grid" aria-label="Photo Post List">
-      {allPosts.sort((a, b) => a.data['publish-date'].getDate() - b.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
+      {allPosts.sort((a, b) => b.data['publish-date'].getDate() - a.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
     </section>
   </main>		
 </Layout/>
