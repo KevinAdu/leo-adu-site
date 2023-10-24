@@ -1,6 +1,6 @@
 ---
 title: 24 weeks. It's a boy!
-photo: /public/img_7676.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135839/img_7676_hplegn.jpg
 caption: |
   Ultrasound picture from the 24th week.
   The doctor confirmed the baby is a boy😊
