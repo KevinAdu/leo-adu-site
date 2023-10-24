@@ -1,6 +1,6 @@
 ---
 title: Mum's belly on the 23rd week
-photo: /public/img_7606.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135839/img_7606_tdhftp.jpg
 caption: |-
   Mum's belly on 23rd week is about this size.
   it is definitely larger than last week!

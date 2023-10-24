@@ -1,6 +1,6 @@
 ---
 title: Mum's belly on the 23rd week
-photo: /public/img_7606.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135839/img_7606_tdhftp.jpg
 caption: |-
   23週のお腹はこれくらい。
   先週よりも確実に大きくなってる！
