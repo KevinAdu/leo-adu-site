@@ -1,6 +1,6 @@
 ---
 title: First Photo!
-photo: /img_7067.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135840/img_7067_tfie6d.jpg
 caption: |-
   2023/5/27 (7週)
   はじめての病院。レオはまだ7mm
