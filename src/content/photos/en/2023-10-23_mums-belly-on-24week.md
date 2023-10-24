@@ -1,6 +1,6 @@
 ---
 title: Mum's belly on the 24th week
-photo: /public/img_7675.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135839/img_7675_melmij.jpg
 caption: |-
   The 24th week. (It's also the 7th month！)
   Mum's belly has now gotten this big!

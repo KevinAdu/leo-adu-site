@@ -1,6 +1,6 @@
 ---
 title: Mum's belly on the 24th week
-photo: /public/img_7675.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135839/img_7675_melmij.jpg
 caption: |-
   24週目(7ヶ月目に突入！)
   ママのお腹はこんなに大きくなってきた！
