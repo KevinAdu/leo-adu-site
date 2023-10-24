@@ -6,7 +6,9 @@
 .post-preview img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   display: block;
   border-radius: 4px;
+  max-inline-size: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
 }

@@ -3,6 +3,12 @@ backend:
   branch: master
 media_folder: "/public" # Media files will be stored in the repo under static/images/uploads
 public_folder: "/public"
+media_library:
+  name: cloudinary
+  output_filename_only: true
+  config:
+    cloud_name: dz8vyplpm
+    api_key: 519588533491653
 i18n:
   structure: multiple_folders
   locales: [ja, en]
@@ -17,7 +23,7 @@ collections:
     delete: true
     fields:
       - { name: "title", widget: "string", label: "Title", i18n: true }
-      - { name: "photo", widget: "image", label: "Photo", i18n: "duplicate" }
+      - { name: "photo", widget: "image", label: "Photo", i18n: "duplicate", media_library: { name: cloudinary, output_filename_only: true } }
       - { name: "caption", widget: "text", label: "Caption", i18n: true }
       - { name: "publish-date", widget: "datetime", label: Publish Date, i18n: "duplicate" }
       - { name: "age", widget: "select", label: "Age", options: ["Before Birth", "1 Month Old", "2 Months Old", "3 Months Old", "4 Months Old", "5 Months Old", "6 Months Old"], default: "Before Birth", i18n: "duplicate" }
