@@ -1,5 +1,5 @@
 ---
-title: 24 weeks It's a boy!
+title: 24 weeks. It's a boy!
 photo: /public/img_7676.jpeg
 caption: |
   Ultrasound picture from the 24th week.
