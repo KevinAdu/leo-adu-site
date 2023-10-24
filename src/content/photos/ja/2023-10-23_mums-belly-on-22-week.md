@@ -1,5 +1,5 @@
 ---
-title: Mum's belly on 22 week
+title: Mum's belly on the 22nd week
 photo: /public/img_7535.jpeg
 caption: |-
   22週目のママのお腹はまだこれくらい。
