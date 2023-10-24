@@ -1,5 +1,5 @@
 ---
-title: Mum's belly on 24week
+title: Mum's belly on the 24th week
 photo: /public/img_7675.jpeg
 caption: |-
   24週目(7ヶ月目に突入！)
