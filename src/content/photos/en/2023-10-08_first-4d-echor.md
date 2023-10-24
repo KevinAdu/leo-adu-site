@@ -1,6 +1,6 @@
 ---
 title: First 4D ultrasound picture!
-photo: /img_7726.jpeg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1698135841/img_7726_ncbkzh.jpg
 caption: >
   19th week.
 
