@@ -1,5 +1,5 @@
 ---
-title: First 4d echor!
+title: First 4D ultrasound picture!
 photo: /img_7726.jpeg
 caption: |-
   19週　初めて4Dエコーで顔が見れるようになった！
