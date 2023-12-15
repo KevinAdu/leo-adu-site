@@ -1,5 +1,5 @@
 .home-layout {
-  a {
+  section + a {
     display: inline-block;
     width: 100%;
     text-align: right;

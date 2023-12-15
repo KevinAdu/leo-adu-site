@@ -10,7 +10,7 @@ if (slug === undefined) {
 }
 
 const albumPhotos = await getCollection("photos", ({ data }) => {
-  return data.age === slug;
+  return data.age === slug && slug.startsWith('en');
 });
 
 if (albumPhotos === undefined) {
