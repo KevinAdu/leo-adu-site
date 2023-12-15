@@ -9,8 +9,8 @@ if (slug === undefined) {
   throw new Error("Slug is required");
 }
 
-const albumPhotos = await getCollection("photos", ({ data }) => {
-  return data.age === slug && slug.startsWith('en');
+const albumPhotos = await getCollection("photos", (photo) => {
+  return photo.data.age === slug && photo.slug.startsWith('en');
 });
 
 if (albumPhotos === undefined) {
