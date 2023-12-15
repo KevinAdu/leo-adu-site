@@ -3,7 +3,10 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Album from '../../components/Album.astro';
 
-const allPosts = await getCollection('photos');
+const allPosts = await getCollection('photos', (photo) => {
+  return photo.slug.startsWith('en')
+});
+
 const ages = allPosts.map(post => post.data.age);
 const uniqueAgesSet = [ ...new Set(ages)];
 const albumInfo = uniqueAgesSet.map(age => {
@@ -21,7 +24,7 @@ const albumInfo = uniqueAgesSet.map(age => {
 
 <Layout>
   <main class="album-layout">
-    <section class="albums-grid" aria-label="Abums List">
+    <section class="albums-grid" aria-label="Albums List">
       {albumInfo.map((album) => <Album albumInfo={album} />)}
     </section>
   </main>		

@@ -4,6 +4,11 @@
   height: 12rem;
   overflow: hidden;
   border-radius: 4px;
+  margin-bottom: 1rem;
+
+  &.compact {
+    height: 7rem;
+  }
 
   img {
     filter: brightness(0.55);
@@ -28,8 +33,7 @@
   }
 
   p {
-    color: #FFF;
-    top: 50%;
-    color: #EBD4D4;
+    top: 55%;
+    color: #FDFAF4;
   }
 }

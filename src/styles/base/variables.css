@@ -4,9 +4,12 @@
 	--font-body: 'Proxima Nova Regular', var(--font-fallback);
 
 	--color-white: #fff;
-	--color-black: #252525;
-  --color-light-pink: #F9F2F2;
-  --color-red: #A43F3F;
+	--color-black: #17150F;
+  --color-dark-brown: #463F2C;
+  --color-dark-gold: #825F00;
+  --color-brown: #5D543A;
+  --color-light-yellow: #FDFAF4;
+  
 
 	--color-green: #17c083;
 	--color-green-rgb: 23, 192, 131;
@@ -18,14 +21,25 @@
 	--color-yellow-rgb: 255, 190, 45;
   --user-font-scale: 1rem - 16px;
   --container-padding: 0 1rem;
+
+  --base-font-size: 16px;
+  --h1-font-size: 2.488rem;
+  --h2-font-size: 2.074rem;
+  --h3-font-size: 1.728rem;
+  --h4-font-size: 1.44rem;
+  --h5-font-size: 1.2rem;
+
+  --header-font-color: var(--color-dark-brown);
+  --header-secondary-font-color: var(--color-dark-gold);
+  --header-font-size: var(--h3-font-size);
 }
 
 :root {
 	color-scheme: light;
 	--theme-accent: var(--color-orange);
 	--theme-accent-opacity: 0.1;
-	--theme-bg: var(--color-light-pink);
-	--theme-bg-offset: var(--color-gray-100);
+	--body-background-color: var(--color-light-yellow);
+	--body-background-color-offset: var(--color-gray-100);
 }
 
 :root.theme-dark {
@@ -35,8 +49,8 @@
 	--theme-text: var(--color-gray-200);
 	--theme-text-light: var(--color-gray-400);
 	--theme-text-lighter: var(--color-gray-600);
-	--theme-bg: var(--color-black);
-	--theme-bg-offset: var(--color-gray-900);
+	--body-background-color: var(--color-black);
+	--body-background-color-offset: var(--color-gray-900);
 	--theme-code-inline-bg: var(--color-gray-800);
 	--theme-code-text: var(--color-gray-200);
 	--theme-code-bg: var(--color-gray-900);

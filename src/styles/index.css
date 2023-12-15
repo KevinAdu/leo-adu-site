@@ -1,11 +1,14 @@
 @import './base/variables.css';
 @import './base/base.css';
 @import './base/typography.css';
+@import './layouts/home.css';
 @import './layouts/show-photo.css';
 @import './layouts/show-album.css';
 @import './layouts/albums.css';
 @import './components/header.css';
 @import './components/nav.css';
+@import './components/button.css';
+@import './components/hero.css';
 @import './components/album.css';
 @import './components/photos-grid.css';
 @import './components/post-preview.css';

@@ -1,5 +1,4 @@
 ---
-import { siteConfig } from '../config';
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 import Navigation from './Navigation.astro';
 
@@ -9,9 +8,8 @@ const translatePath = useTranslatedPath(lang);
 <header class="site-header">
   <a class="site-header-logo" href={translatePath("/")}>
 		<h1>
-			{siteConfig.title}
+			LEO <span class="header-last-name">ADU</span>
 		</h1>
   </a>
   <Navigation />
-  <h2 class="header-subtitle">{siteConfig.subTitle}</h2>
 </header>

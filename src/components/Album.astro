@@ -5,16 +5,17 @@ interface Props {
     count: number;
     coverImagePath: string;
   };
+  compact?: boolean;
 }
 
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
-const { albumInfo } = Astro.props;
+const { albumInfo, compact } = Astro.props;
 
 ---
 <a href=`/album/${albumInfo.age}`>
-<article class="album">
+<article class=`album ${compact && 'compact'}`>
   <img src={albumInfo.coverImagePath} loading="lazy" />
   <h2>{albumInfo.age}</h2>
   <p>{albumInfo.count} PHOTOS</p>

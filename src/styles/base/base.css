@@ -13,10 +13,10 @@ header {
 }
 
 body {
-	background: var(--theme-bg);
+	background: var(--body-background-color);
 	color: var(--color-black);
   font-family: var(--font-body);
-	font-size: 18px;
+	font-size: var(--base-font-size);
 	line-height: 1.75;
 }
 

@@ -3,33 +3,28 @@
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
+  margin-bottom: 2rem;
 }
-.site-header + main {
-  margin-top: 1.5rem;
-} 
 
 .site-header .site-header-logo {
-  color: var(--color-black);
+  color: var(--header-font-color);
   display: inline-block;
   text-decoration: none;
 }
+
 
 .site-header h1 {
   margin: 0;
   max-width: 100%;
   text-transform: uppercase;
   line-height: 0.75;
-  margin-top: 0.5rem;
+  margin-top: 1.25rem;
   font-family: 'Proxima Nova Semibold', sans-serif;
+  font-size: var(--header-font-size);
 }
 
-.site-header h2 {
-  margin-top: 0;
-  color: var(--color-red);
-  font-size: 1rem;
-  margin-bottom: 0;
-  font-family: 'Helvetica Neue Condensed Bold', sans-serif;
-  text-transform: uppercase;
+.site-header h1 .header-last-name {
+  color: var(--header-secondary-font-color);
 }
 
 .nav {
@@ -72,17 +67,15 @@
   cursor: pointer;
   display: flex;
   justify-self: flex-end;
-  /* padding: 10px 20px; */
-  grid-row: span 2;
-  align-self: center;
+  margin-top: 1.5rem;
 }
 
 .hamb-line {
   background: var(--color-black);
   display: block;
-  height: 3px;
+  height: 2px;
   position: relative;
-  width: 27px;
+  width: 24px;
 }
 
 .hamb-line::before,

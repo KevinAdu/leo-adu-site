@@ -1,0 +1,44 @@
+.hero {
+  text-align: center;
+
+  .button {
+    margin-bottom: 1.75rem;
+  }
+
+  h2 {
+    font-family: 'Proxima Nova Regular', sans-serif;
+    color: var(--color-brown);
+    margin: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .countdown {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.25rem;
+
+    .time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+
+      & h3 {
+        font-size: var(--h1-font-size);
+        -webkit-text-stroke: 1.25px #8B7D58;
+        color: #E8D192;
+        margin: 0;
+        line-height: 0.75;
+      }
+
+      & small {
+        font-family: 'Proxima Nova Semibold', sans-serif;
+        font-size: 1rem;
+        text-transform: capitalize;
+        color: #5D543A;
+      }
+    }
+  }
+}

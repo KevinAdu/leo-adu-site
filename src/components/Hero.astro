@@ -1,0 +1,91 @@
+---
+---
+<div class="hero">
+  <h2 class="h4">There is this much time until our son Leo Adu is born!</h2>
+  <div id="countdown" class="countdown">
+			<div  class="time">
+				<h3 id="days">00</h3>
+				<small>days</small>
+			</div>
+			<div  class="time">
+				<h3 id="hours">00</h3>
+				<small>hours</small>
+			</div>
+			<div  class="time">
+				<h3 id="minutes">00</h3>
+				<small>minutes</small>
+			</div>
+			<div  class="time">
+				<h3 id="seconds">00</h3>
+				<small>seconds</small>
+			</div>
+		</div>
+    <button class="button">Learn about Leo</button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const days = document.getElementById('days');
+  const hours = document.getElementById('hours');
+  const minutes = document.getElementById('minutes');
+  const seconds = document.getElementById('seconds');
+
+  // target date
+  const targetTime = new Date(`January 10 2024 23:59:59`)
+  const currentTime = new Date()
+  let diff = targetTime - currentTime;
+
+  //create audio element
+  const audioConter = document.getElementById('audio')
+  const audioElement = new Audio()
+  audioElement.controls = true
+  audioElement.autoplay = true
+  audioElement.innerHTML = `Tu navegador no soporta audio HTML5.`
+
+
+  const updateCountdown = () => {
+    console.log(diff)
+ 
+    const remainingYears = Math.max(Math.floor(diff / 1000 / 60 / 60 / 24 / 365));
+    const remainingDays = Math.max(Math.floor(diff / 1000 / 60 / 60 / 24 ));
+    const remainingHours = Math.max(Math.floor(diff / 1000 / 60 / 60) % 24);
+    const remainingMinutes = Math.max(Math.floor(diff / 1000 / 60) % 60);
+    const remainingSeconds = Math.max(Math.floor(diff / 1000 ) % 60);
+
+    if ( remainingYears === 0 && remainingDays === 0 && remainingHours === 0 && remainingMinutes === 0 && remainingSeconds === 0) {
+
+    clearInterval(countdownInterval);
+  }
+  days.innerHTML = remainingDays;
+  hours.innerHTML = remainingHours < 10 ? '0' + remainingHours  : remainingHours;
+  minutes.innerHTML = remainingMinutes < 10 ? '0' + remainingMinutes : remainingMinutes;
+  seconds.innerHTML = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+
+}
+
+const countdownInterval = setInterval(() => {
+updateCountdown();
+    diff -= 1000;
+    if (diff < 0) {
+      diff = 0; // Asegura que diff no sea negativo
+  }
+}, 1000);
+
+
+
+window.onload = () => {
+
+}
+
+setInterval(() => {
+
+}, 30000)
+
+
+
+
+
+
+})
+
+</script>

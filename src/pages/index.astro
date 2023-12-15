@@ -2,16 +2,38 @@
 import PostPreview from '../components/PostPreview.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Album from '../components/Album.astro';
 
 const allPosts = await getCollection('photos', (photo) => {
   return !photo.slug.startsWith('en')
 });
+const ages = allPosts.map(post => post.data.age);
+const uniqueAgesSet = [ ...new Set(ages)];
+const albumInfo = uniqueAgesSet.map(age => {
+  const allAges = allPosts.filter(({data}) => {
+    return data.age === age;
+  });
+
+  return {
+    age,
+    count: allAges.length,
+    coverImagePath: allAges[0].data.photo
+  }
+});
+const PHOTO_LIMIT = 6;
 ---
 
 <Layout>
   <main class="home-layout">
+    <Hero />
     <section class="photos-grid" aria-label="Photo Post List">
-      {allPosts.sort((a, b) => b.data['publish-date'].getDate() - a.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
+      {allPosts.slice(0, PHOTO_LIMIT).sort((a, b) => b.data['publish-date'].getDate() - a.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
     </section>
+    <a>More Photos</a>
+    <section class="albums-grid" aria-label="Albums List">
+      {albumInfo.map((album) => <Album compact albumInfo={album} />)}
+    </section>
+    <a href="/albums">More Albums</a>
   </main>		
 </Layout/>
