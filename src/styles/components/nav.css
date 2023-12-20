@@ -3,9 +3,15 @@
   display: grid;
   grid-template-columns: auto 1fr;
   margin: 1rem 0;
+  padding: 0;
+  
+  .hamb {
+    margin-top: 0.75rem;
+  }
 
   a {
     display: inline-block;
+    color: var(--color-black);
 
     &:focus {
       text-decoration: none;

@@ -28,7 +28,11 @@ const PHOTO_LIMIT = 6;
   <main class="home-layout">
     <Hero />
     <section class="photos-grid" aria-label="Photo Post List">
-      {allPosts.slice(0, PHOTO_LIMIT).sort((a, b) => b.data['publish-date'].getDate() - a.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
+      {allPosts
+        .sort((a, b) => a.data['publish-date'].getDate() > b.data['publish-date'].getDate() ? 1 : -1 )
+        .slice(0, PHOTO_LIMIT)
+        .map((p) => <PostPreview post={p} />)
+      }
     </section>
     <a>More Photos</a>
     <section class="albums-grid" aria-label="Albums List">

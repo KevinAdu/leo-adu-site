@@ -5,13 +5,12 @@
 
 .show-photo-section p,
 .show-photo-section time {
-  font-size: 0.8rem;
   margin-bottom: 1rem;
 }
 
 .show-photo-section p {
   margin-bottom: 0;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .show-photo-section time {
