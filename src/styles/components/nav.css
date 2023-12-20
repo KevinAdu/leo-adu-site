@@ -10,7 +10,7 @@
   }
 
   a {
-    display: inline-block;
+    display: block;
     color: var(--color-black);
 
     &:focus {
