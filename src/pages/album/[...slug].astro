@@ -17,13 +17,8 @@ if (albumPhotos === undefined) {
   return Astro.redirect("/404");
 }
 ---
-<Layout noHeader>
+<Layout>
   <main class="show-album">
-    <header class="header-nav-link">
-      <a href="/">← ALBUMS</a>
-      <Navigation />
-    </header>
-    
     <h2>{slug}</h2>
     <p>{albumPhotos.length} PHOTOS</p>
     <section class="photos-grid" aria-label="Photo Post List">

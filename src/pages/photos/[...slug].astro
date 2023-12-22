@@ -17,13 +17,9 @@ if (entry === undefined) {
 }
 
 ---
-<Layout noHeader>
+<Layout>
   <main>
     <section class="show-photo-section">
-      <header class="header-nav-link">
-        <a href="/">← PHOTOS</a>
-        <Navigation />
-      </header>
       <img src={entry.data.photo} alt={entry.data.title} loading="lazy" width="100%"/>
       <p>{entry.data.caption}</p>
       <time>{format(entry.data["publish-date"], 'dd MMM yyyy')}</time>
