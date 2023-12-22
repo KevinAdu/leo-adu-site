@@ -1,9 +1,4 @@
-.albums-layout {
-  .albums-grid {
-    display: grid;
-    gap: 1rem;
-  }
-
+.all-photos-layout {
   h2 {
     font-size: var(--h4-font-size);
     margin: 0;

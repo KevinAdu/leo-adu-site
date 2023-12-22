@@ -5,6 +5,7 @@
 @import './layouts/show-photo.css';
 @import './layouts/show-album.css';
 @import './layouts/albums.css';
+@import './layouts/all-photos.css';
 @import './components/header.css';
 @import './components/button.css';
 @import './components/hero.css';

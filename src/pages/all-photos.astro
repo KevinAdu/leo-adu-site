@@ -1,0 +1,22 @@
+---
+import PostPreview from '../components/PostPreview.astro';
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allPosts = await getCollection('photos', (photo) => {
+  return !photo.slug.startsWith('en')
+});
+---
+
+<Layout>
+  <main class="all-photos-layout">
+    <h2>Photos</h2>
+    <h3>Leo's life covered in photography</h3>
+    <section class="photos-grid" aria-label="Photo Post List">
+      {allPosts
+        .sort((a, b) => a.data['publish-date'].getDate() > b.data['publish-date'].getDate() ? 1 : -1 )
+        .map((p) => <PostPreview post={p} />)
+      }
+    </section>
+  </main>		
+</Layout/>
