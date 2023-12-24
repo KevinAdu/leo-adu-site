@@ -1,9 +1,10 @@
 ---
-import { getEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { defaultLang } from "../../i18n/ui";
 import Layout from '../../layouts/Layout.astro';
 import { format } from 'date-fns'
 import Navigation from "../../components/Navigation.astro";
+import PostPreview from "../../components/PostPreview.astro";
 // 1. Get the slug from the incoming server request
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -15,6 +16,11 @@ const entry = await getEntry("photos", `${defaultLang}/${slug}`);
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
+const allPosts = await getCollection('photos', (photo) => {
+  return !photo.slug.startsWith('en')
+});
+const selectedPhotoIndex = allPosts.findIndex((photo) => photo.id === entry.id);
+allPosts.splice(selectedPhotoIndex, 1);
 
 ---
 <Layout>
@@ -23,6 +29,13 @@ if (entry === undefined) {
       <img src={entry.data.photo} alt={entry.data.title} loading="lazy" width="100%"/>
       <p>{entry.data.caption}</p>
       <time>{format(entry.data["publish-date"], 'dd MMM yyyy')}</time>
+      <h3 class="h5-font-size">More Photos</h3>
+      <div class="photos-grid" aria-label="Photo Post List">
+      {allPosts
+        .slice(0, 3)
+        .map((p) => <PostPreview post={p} />)
+      }
+      </div>
     </section>
   </main>
 </Layout>

@@ -16,3 +16,12 @@
 .show-photo-section time {
   font-family: 'Proxima Nova Semibold', sans-serif;
 }
+
+.show-photo-section h3 {
+  margin: 1rem 0;
+  font-size: var(--h4-font-size);
+}
+
+.show-photo-section .photos-grid {
+  margin-bottom: 3rem;
+}
