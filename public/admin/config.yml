@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
   branch: master
+public_folder: "/public"
 media_library:
   name: cloudinary
   output_filename_only: true
@@ -21,7 +22,7 @@ collections:
     delete: true
     fields:
       - { name: "title", widget: "string", label: "Title", i18n: true }
-      - { name: "photo", widget: "image", label: "Photo", i18n: "duplicate", media_library: { name: cloudinary, output_filename_only: true } }
+      - { name: "photo", widget: "image", label: "Photo", i18n: "duplicate", media_library: { name: cloudinary } }
       - { name: "caption", widget: "text", label: "Caption", i18n: true }
       - { name: "publish-date", widget: "datetime", label: Publish Date, i18n: "duplicate" }
       - { name: "age", widget: "select", label: "Age", options: ["Before Birth", "A few days old", "A few weeks old", "1 Month Old", "2 Months Old", "3 Months Old", "4 Months Old", "5 Months Old", "6 Months Old"], default: "Before Birth", i18n: "duplicate" }
