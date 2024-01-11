@@ -1,9 +1,11 @@
 backend:
   name: git-gateway
   branch: master
-public_folder: "/public"
 media_library:
   name: cloudinary
+  output_filename_only: false
+  use_transformations: false
+  use_secure_url: true
   config:
     cloud_name: dz8vyplpm
     api_key: 519588533491653
