@@ -11,7 +11,8 @@ export const ui = {
   en: {
     'common.photos': 'Photos',
     'common.albums': 'Albums',
-    'tabs.wishlist': 'Leo\'s Amazon Wishlist',
+    'tabs.wishlist': 'Amazon Wishlist',
+    'tabs.youtube': 'YouTube',
     'home.tagline': 'It has been this long since our son Leo was brought into the world!',
     'count.photos': 'photos',
     'more_photos': 'More Photos',
@@ -24,8 +25,9 @@ export const ui = {
   },
   ja: {
     'common.photos': 'フォト',
-    'common.albums': 'アルブム',
-    'tabs.wishlist': 'レオのアマゾンウィッシュリスト',
+    'common.albums': 'アルバム',
+    'tabs.wishlist': 'アマゾンウィッシュリスト',
+    'tabs.youtube': 'ユーチューブ',
     'home.tagline': 'レオが私達のもとに誕生してから',
     'count.photos': '枚',
     'more_photos': 'もっと見る',
