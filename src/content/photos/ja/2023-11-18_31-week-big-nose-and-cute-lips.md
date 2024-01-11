@@ -1,6 +1,6 @@
 ---
 title: 31 week! Big nose and cute lips
-photo: /public/IMG_7892_dvse8e.jpg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1700311453/IMG_7892_dvse8e.jpg
 caption: |-
   31週のエコー写真。
   大阪に帰ってきて初めての病院。2017gで大きいですね、と助産師さんに言われたよ。口をパクパクしていて可愛かった。
