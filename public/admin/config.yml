@@ -39,6 +39,6 @@ collections:
           - { label: "4 Months Old", value: "album.4_months_old" }
           - { label: "5 Months Old", value: "album.5_months_old" }
           - { label: "6 Months Old", value: "album.6_months_old" } 
-        default: "Before Birth"
+        default: { label: "A few weeks old", value: "album.few_weeks_old" }
         i18n: "duplicate"
       - { name: "tags", widget: "list", label: "Tags", i18n: true }

@@ -6,5 +6,5 @@ caption: |-
   ママのお腹はこんなに大きくなってきた！
   レオくんは700gくらいかな？1kgまでもう少し！
 publish-date: 2023-09-22T02:14:23.564Z
-age: Before Birth
+age: album.before_birth
 ---

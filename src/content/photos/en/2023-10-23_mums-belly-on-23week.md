@@ -6,5 +6,5 @@ caption: |-
   it is definitely larger than last week!
   I think Leo is maybe about 600g now?
 publish-date: 2023-09-14T02:10:53.119Z
-age: Before Birth
+age: album.before_birth
 ---

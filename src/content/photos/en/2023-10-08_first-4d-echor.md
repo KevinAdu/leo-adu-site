@@ -10,5 +10,5 @@ caption: >
 
   The next day we went to a shrine and wished for the safety of the delivery of the baby.
 publish-date: 2023-08-18T15:44:33.361Z
-age: Before Birth
+age: album.before_birth
 ---

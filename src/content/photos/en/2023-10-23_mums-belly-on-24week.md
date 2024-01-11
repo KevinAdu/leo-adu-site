@@ -6,5 +6,5 @@ caption: |-
   Mum's belly has now gotten this big!
   I think Leo is maybe about 700g? A bit more until 1kg!
 publish-date: 2023-09-22T02:14:23.564Z
-age: Before Birth
+age: album.before_birth
 ---

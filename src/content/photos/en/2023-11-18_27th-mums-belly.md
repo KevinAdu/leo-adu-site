@@ -6,5 +6,5 @@ caption: |-
   だいぶお腹が重くなってきた。
   レオくんのキックも強くなってきたよ。
 publish-date: 2023-10-17T12:32:20.855Z
-age: Before Birth
+age: album.before_birth
 ---

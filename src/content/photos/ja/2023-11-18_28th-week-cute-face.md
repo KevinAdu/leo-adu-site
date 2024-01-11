@@ -6,5 +6,5 @@ caption: |-
   可愛い顔がしっかりみれて嬉しかったなぁ。
   頬っぺたもふっくらしてきて、元気に育ってそうでよかった。
 publish-date: 2023-10-21T12:33:59.170Z
-age: Before Birth
+age: album.before_birth
 ---
