@@ -22,7 +22,7 @@ if (albumPhotos === undefined) {
 ---
 <Layout>
   <main class="show-album">
-    <h2>{i18n(slug as keyof typeof ui[typeof defaultLang]))}</h2>
+    <h2>{i18n(slug as keyof typeof ui[typeof defaultLang])}</h2>
     <p>{albumPhotos.length} PHOTOS</p>
     <section class="photos-grid" aria-label="Photo Post List">
       {albumPhotos.sort((a, b) => a.data['publish-date'].getDate() - b.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
