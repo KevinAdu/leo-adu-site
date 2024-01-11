@@ -2,7 +2,10 @@
 import PostPreview from '../../components/PostPreview.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
+const i18n = useTranslations(lang);
 const allPosts = await getCollection('photos', (photo) => {
   return photo.slug.startsWith('en')
 });
@@ -10,7 +13,7 @@ const allPosts = await getCollection('photos', (photo) => {
 
 <Layout>
   <main class="all-photos-layout">
-    <h2>Photos</h2>
+    <h2>{i18n('common.photos')}</h2>
     <h3>Leo's life covered in photography</h3>
     <section class="photos-grid" aria-label="Photo Post List">
       {allPosts

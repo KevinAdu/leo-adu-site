@@ -2,10 +2,14 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Album from '../components/Album.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
+const i18n = useTranslations(lang);
 const allPosts = await getCollection('photos', (photo) => {
   return !photo.slug.startsWith('en')
 });
+
 const ages = allPosts.map(post => post.data.age);
 const uniqueAgesSet = [ ...new Set(ages)];
 const albumInfo = uniqueAgesSet.map(age => {
@@ -23,7 +27,7 @@ const albumInfo = uniqueAgesSet.map(age => {
 
 <Layout>
   <main class="albums-layout">
-    <h2>Albums</h2>
+    <h2>{i18n('common.albums')}</h2>
     <h3>Moments of Leo's life from different ages</h3>
     <section class="albums-grid" aria-label="Albums List">
       {albumInfo.map((album) => <Album albumInfo={album} />)}

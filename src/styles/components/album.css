@@ -35,5 +35,9 @@
   p {
     top: 55%;
     color: #FDFAF4;
+
+    span.en {
+      margin-left: 0.5ch;
+    }
   }
 }
