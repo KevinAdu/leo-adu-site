@@ -6,3 +6,34 @@
     margin-bottom: 1rem;
   }
 }
+
+@media (min-width: 768px) {
+  .home-layout {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 2fr 3fr;
+    gap: 2rem;
+
+    .hero {
+      grid-column: span 2;
+    }
+
+    .photos-grid {
+      margin-bottom: 0;
+    }
+    
+    .albums-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr auto;
+
+      a {
+        display: inline-block;
+      }
+      .compact {
+        margin-bottom: 0.5rem;
+        height: 164.719px;
+      }
+    }
+  }
+}
+

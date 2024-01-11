@@ -150,7 +150,17 @@
 }
 
 @media (min-width: 768px) {
-  .header-logo {
-    margin: 0;
+  .site-header {
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+      width: 10rem;
+    }
+  }
+
+  .nav-links {
+    align-self: flex-end;
   }
 }

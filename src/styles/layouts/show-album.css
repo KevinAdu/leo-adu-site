@@ -14,3 +14,18 @@
     margin-bottom: 0.5rem;
   }
 }
+
+@media (min-width: 768px) {
+  .show-album {
+    margin-bottom: 2rem;
+    .photos-grid {
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0 auto;
+      max-width: 900px;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

@@ -2,8 +2,11 @@
 import { getCollection } from "astro:content";
 import Layout from '../../layouts/Layout.astro';
 import PostPreview from "../../components/PostPreview.astro";
-import Navigation from '../../components/Navigation.astro';
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { ui, defaultLang } from "../../i18n/ui";
 
+const lang = getLangFromUrl(Astro.url);
+const i18n = useTranslations(lang);
 const { slug } = Astro.params;
 if (slug === undefined) {
   throw new Error("Slug is required");
@@ -19,7 +22,7 @@ if (albumPhotos === undefined) {
 ---
 <Layout>
   <main class="show-album">
-    <h2>{slug}</h2>
+    <h2>{i18n(slug as keyof typeof ui[typeof defaultLang])}</h2>
     <p>{albumPhotos.length} PHOTOS</p>
     <section class="photos-grid" aria-label="Photo Post List">
       {albumPhotos.sort((a, b) => a.data['publish-date'].getDate() - b.data['publish-date'].getDate() ).map((p) => <PostPreview post={p} />)}
