@@ -1,54 +1,37 @@
 ---
+  const birthDateTime = new Date(`January 1 2024 21:45:00`)
+  const currentDateTime = new Date()
+  let differenceInTime = currentDateTime - birthDateTime;
+  const msInHour = 1000 * 60 * 60;
+  const totalHours = (Math.abs( differenceInTime) / msInHour);
+  const runnningMonths = currentDateTime.getMonth() - birthDateTime.getMonth() + 12 * (currentDateTime.getFullYear() - birthDateTime.getFullYear());
+  const runnningWeeks = Math.floor(totalHours / 24 / 7) - runnningMonths * 4;
+  const runnningDays = Math.floor(totalHours / 24) - Math.floor(totalHours / 24 / 7) * 7;
+  const runnningHours = Math.floor( totalHours % 24);
+  const monthsToDisplay = runnningMonths < 10 ? '0' + runnningMonths : runnningMonths;
+  const weeksToDisplay = runnningWeeks < 10 ? '0' + runnningWeeks : runnningWeeks;
+  const daysToDisplay = runnningDays < 10 ? '0' + runnningDays : runnningDays;
+  const hoursToDisplay = runnningHours < 10 ? '0' + runnningHours  : runnningHours;
 ---
 <div class="hero">
   <h2 class="h4">It has been this long since our son Leo was brought into the world!</h2>
   <div id="countdown" class="countdown">
       <div class="time">
-        <h3 id="months">00</h3>
+        <h3 id="months">{monthsToDisplay}</h3>
         <small>months</small>
       </div>
 			<div class="time">
-				<h3 id="weeks">00</h3>
+				<h3 id="weeks">{weeksToDisplay}</h3>
 				<small>weeks</small>
 			</div>
 			<div class="time">
-				<h3 id="days">00</h3>
+				<h3 id="days">{daysToDisplay}</h3>
 				<small>days</small>
 			</div>
 			<div class="time">
-				<h3 id="hours">00</h3>
+				<h3 id="hours">{hoursToDisplay}</h3>
 				<small>hours</small>
 			</div>
 		</div>
     <!-- <button class="button">Learn about Leo</button> -->
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const months = document.getElementById('months');
-    const weeks = document.getElementById('weeks');
-    const days = document.getElementById('days');
-    const hours = document.getElementById('hours');
-    
-    // target date
-    const birthDateTime = new Date(`January 1 2024 21:45:00`)
-    const currentDateTime = new Date()
-    let differenceInTime = currentDateTime - birthDateTime;
-
-    const updateCountdownDOM = () => {
-      const msInHour = 1000 * 60 * 60;
-      const totalHours = (Math.abs( differenceInTime) / msInHour);
-      const runnningMonths = currentDateTime.getMonth() - birthDateTime.getMonth() + 12 * (currentDateTime.getFullYear() - birthDateTime.getFullYear());
-      const runnningWeeks = Math.floor(totalHours / 24 / 7) - runnningMonths * 4;
-      const runnningDays = Math.floor(totalHours / 24) - Math.floor(totalHours / 24 / 7) * 7;
-      const runnningHours = Math.floor( totalHours % 24);
-
-      months.innerHTML = runnningMonths < 10 ? '0' + runnningMonths : runnningMonths;
-      weeks.innerHTML = runnningWeeks < 10 ? '0' + runnningWeeks : runnningWeeks;
-      days.innerHTML = runnningDays < 10 ? '0' + runnningDays : runnningDays;
-      hours.innerHTML = runnningHours < 10 ? '0' + runnningHours  : runnningHours;
-    }
-    updateCountdownDOM();
-  });
-  
-</script>
