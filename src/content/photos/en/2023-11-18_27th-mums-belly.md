@@ -1,6 +1,6 @@
 ---
 title: 27th mum's belly
-photo: /public/IMG_7767_zzt2fg.jpg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1700310666/IMG_7767_zzt2fg.jpg
 caption: |-
   27週のママのお腹はこんな感じ。
   だいぶお腹が重くなってきた。
