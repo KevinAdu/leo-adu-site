@@ -5,31 +5,34 @@ interface Props {
 }
 
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+import { CLOUDINARY_URL_ROOT } from '../helpers/cloudinary';
 
 const lang = getLangFromUrl(Astro.url);
 const { post } = Astro.props;
 const translatePath = useTranslatedPath(lang);
 const trimmedSlug = post.slug.slice(2);
+const versionAndFilenameRegex = /\/v.*$/g;
+const filename = post.data.photo.match(versionAndFilenameRegex);
 ---
 <article class="post-preview">
   <a href={translatePath(`/photos${trimmedSlug}`)}>
     <picture>
       <source 
         media="(min-width: 150px)"
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_150/${post.data.photo.split('/').pop()} 150w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/${post.data.photo.split('/').pop()} 300w`
+        srcset=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_150/${filename} 150w, 
+        ${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/${filename} 300w`
         sizes="100vw"
       />
       <source 
         media="(min-width: 400px)"
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()} 400w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_800/${post.data.photo.split('/').pop()} 800w`
+        srcset=`${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_400/${filename} 400w, 
+        ${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_800/${filename} 800w`
         sizes="100vw"
       />
       <img
-        srcset=`https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()} 400w, 
-        https://res.cloudinary.com/dz8vyplpm/image/upload/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/${post.data.photo.split('/').pop()} 150w`
-        src=`https://res.cloudinary.com/dz8vyplpm/image/upload/f_auto/q_auto/c_scale,w_400/${post.data.photo.split('/').pop()}`
+        srcset=`${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/${filename} 400w, 
+        ${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/${filename} 150w`
+        src=`${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_400/${filename}`
         alt={post.data.title}
         sizes="100vw" 
         loading="lazy"
@@ -38,3 +41,4 @@ const trimmedSlug = post.slug.slice(2);
     </picture>
   </a>
 </article>
+../helpers/cloudinary

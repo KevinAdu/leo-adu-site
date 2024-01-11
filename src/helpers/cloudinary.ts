@@ -1,0 +1,1 @@
+export const CLOUDINARY_URL_ROOT = 'https://res.cloudinary.com/dz8vyplpm/image/upload/';
