@@ -1,6 +1,6 @@
 ---
 title: 28th week! Cute face
-photo: /public/IMG_7799_qjagky.jpg
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1700310882/IMG_7799_qjagky.jpg
 caption: |-
   28週の4Dエコー写真。
   可愛い顔がしっかりみれて嬉しかったなぁ。
