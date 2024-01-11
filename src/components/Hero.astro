@@ -1,4 +1,8 @@
 ---
+  
+  import { getLangFromUrl, useTranslations } from "../i18n/utils";
+  const lang = getLangFromUrl(Astro.url);
+  const i18n = useTranslations(lang);
   const birthDateTime = new Date(`January 1 2024 21:45:00`)
   const currentDateTime = new Date()
   let differenceInTime = currentDateTime - birthDateTime;
@@ -14,7 +18,7 @@
   const hoursToDisplay = runnningHours < 10 ? '0' + runnningHours  : runnningHours;
 ---
 <div class="hero">
-  <h2 class="h4">It has been this long since our son Leo was brought into the world!</h2>
+  <h2 class="h4">{i18n('home.tagline')}</h2>
   <div id="countdown" class="countdown">
       <div class="time">
         <h3 id="months">{monthsToDisplay}</h3>
