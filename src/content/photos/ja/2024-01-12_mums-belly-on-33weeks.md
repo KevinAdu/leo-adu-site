@@ -1,5 +1,5 @@
 ---
-title: "Mum's belly on 33weeks "
+title: Mum's belly on the 33rd week
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705051641/IMG_7997_x2zzyb.jpg
 caption: >-
   33週のママのお腹。
