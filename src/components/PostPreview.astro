@@ -5,14 +5,13 @@ interface Props {
 }
 
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
-import { CLOUDINARY_URL_ROOT } from '../helpers/cloudinary';
+import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from '../helpers/cloudinary';
 
 const lang = getLangFromUrl(Astro.url);
 const { post } = Astro.props;
 const translatePath = useTranslatedPath(lang);
 const trimmedSlug = post.slug.slice(2);
-const versionAndFilenameRegex = /\/v.*$/g;
-const filename = post.data.photo.match(versionAndFilenameRegex);
+const filename = getCloudinaryFilename(post.data.photo);
 ---
 <article class="post-preview">
   <a href={translatePath(`/photos${trimmedSlug}`)}>

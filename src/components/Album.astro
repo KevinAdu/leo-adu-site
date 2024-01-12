@@ -1,5 +1,5 @@
 ---
-import { CLOUDINARY_URL_ROOT } from '../helpers/cloudinary';
+import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from '../helpers/cloudinary';
 import type { ui, defaultLang } from '../i18n/ui';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 interface Props {
@@ -14,8 +14,7 @@ interface Props {
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
 const { albumInfo, compact } = Astro.props;
-const versionAndFilenameRegex = /\/v.*$/g;
-const filename = albumInfo.coverImagePath.match(versionAndFilenameRegex);
+const filename = getCloudinaryFilename(albumInfo.coverImagePath)
 ---
 <a href=`/album/${albumInfo.age}`>
 <article class=`album ${compact && 'compact'}`>
