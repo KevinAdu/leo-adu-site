@@ -1,5 +1,5 @@
 ---
-title: Side face on 35th week
+title: The side of his face on the 35th week
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705051643/IMG_8081_iob2py.jpg
 caption: |-
   35週目の横顔エコー写真。
