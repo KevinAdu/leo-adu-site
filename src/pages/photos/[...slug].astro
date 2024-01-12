@@ -32,6 +32,9 @@ allPosts.splice(selectedPhotoIndex, 1);
       <h3 class="h5-font-size">More Photos</h3>
       <div class="photos-grid" aria-label="Photo Post List">
       {allPosts
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
         .slice(0, 3)
         .map((p) => <PostPreview post={p} />)
       }
