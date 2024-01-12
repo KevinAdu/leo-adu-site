@@ -17,7 +17,7 @@ const allPosts = await getCollection('photos', (photo) => {
     <h3>Leo's life covered in photography</h3>
     <section class="photos-grid" aria-label="Photo Post List">
       {allPosts
-        .sort((a, b) => a.data['publish-date'].getDate() > b.data['publish-date'].getDate() ? 1 : -1 )
+        .sort((a, b) => a.data['publish-date'] > b.data['publish-date'] ? -1 : 1 )
         .map((p) => <PostPreview post={p} />)
       }
     </section>

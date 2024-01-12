@@ -26,6 +26,7 @@ const albumInfo = uniqueAgesSet.map(age => {
 });
 const PHOTO_LIMIT = 6;
 const ALBUM_LIMIT = 2;
+console.log(new Date(allPosts[0].data['publish-date']))
 ---
 
 <Layout>
@@ -33,7 +34,7 @@ const ALBUM_LIMIT = 2;
     <Hero />
     <section class="photos-grid" aria-label="Photo Post List">
       {allPosts
-        .sort((a, b) => a.data['publish-date'].getDate() > b.data['publish-date'].getDate() ? 1 : -1 )
+        .sort((a, b) => a.data['publish-date'] > b.data['publish-date'] ? -1 : 1 )
         .slice(0, PHOTO_LIMIT)
         .map((p) => <PostPreview post={p} />)
       }
