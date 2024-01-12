@@ -20,7 +20,7 @@ const filename = albumInfo.coverImagePath.match(versionAndFilenameRegex);
 <a href=`/album/${albumInfo.age}`>
 <article class=`album ${compact && 'compact'}`>
   <img src=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto${filename}` loading="lazy" />
-  <h2 class="h3">{i18n(albumInfo.age as keyof typeof ui[typeof defaultLang])}</h2>
+  <h2 class="h4">{i18n(albumInfo.age as keyof typeof ui[typeof defaultLang])}</h2>
   <p>{albumInfo.count}<span class=`${lang}`>{i18n('count.photos')}</span></p>
 </article>
 </a>
