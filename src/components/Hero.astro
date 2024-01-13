@@ -3,8 +3,17 @@
   import { getLangFromUrl, useTranslations } from "../i18n/utils";
   const lang = getLangFromUrl(Astro.url);
   const i18n = useTranslations(lang);
-  const birthDateTime = new Date(`January 1 2024 21:45:00`)
-  const currentDateTime = new Date()
+  
+  const birthDateTime = new Date(
+  new Date(`January 1 2024 21:45:00`).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
+    }),
+  );
+  const currentDateTime = new Date(
+      new Date().toLocaleString('ja-JP', {
+        timeZone: 'Asia/Tokyo',
+      }),
+    );
   let differenceInTime = currentDateTime - birthDateTime;
   const msInHour = 1000 * 60 * 60;
   const totalHours = (Math.abs( differenceInTime) / msInHour);
