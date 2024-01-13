@@ -1,5 +1,5 @@
 ---
-title: Mum's belly on 36th week
+title: Mum's belly on the 36th week
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705051644/IMG_8088_d7rs7k.jpg
 caption: |-
   臨月に入ったママのお腹はこんなかんじ。
