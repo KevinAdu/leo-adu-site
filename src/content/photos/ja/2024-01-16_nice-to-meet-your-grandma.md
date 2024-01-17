@@ -1,5 +1,5 @@
 ---
-title: Nice to meet your grandma
+title: Nice to meet you Grandma
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705388505/IMG_8220_x3eecl.jpg
 caption: |-
   生後3日目。
