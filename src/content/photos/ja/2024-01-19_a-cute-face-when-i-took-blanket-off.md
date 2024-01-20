@@ -1,5 +1,5 @@
 ---
-title: "A cute face when I took blanket off "
+title: A cute face when I took blanket off
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705663168/IMG_8289_c55le7.jpg
 caption: |-
   生後8日目。
