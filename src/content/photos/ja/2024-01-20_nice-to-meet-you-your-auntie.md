@@ -1,5 +1,5 @@
 ---
-title: Nice to meet you, your auntie
+title: Nice to meet you auntie
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1705753065/IMG_8292_jwuevl.jpg
 caption: |-
   Auntieが会いにきてくれた！
