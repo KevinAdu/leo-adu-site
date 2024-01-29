@@ -1,5 +1,5 @@
 ---
-title: And th soles of his feet
+title: The soles of his feet
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1706449722/IMG_8358_cu48fz.jpg
 caption: |-
   足がこんなに小さい！
