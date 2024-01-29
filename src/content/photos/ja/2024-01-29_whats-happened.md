@@ -1,5 +1,5 @@
 ---
-title: What's happened?!
+title: What happened?
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1706449722/IMG_8365_xfpieq.jpg
 caption: |-
   パパが遊んであげたら、何が起きてるのか分からなくてびっくりした顔😂
