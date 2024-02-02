@@ -1,20 +1,22 @@
 ---
+interface Props {
+  imageUrl?: string;
+}
+
 import BaseHead from '../components/BaseHead.astro';
 import { getLangFromUrl } from '../i18n/utils';
-import { siteConfig } from '../config';
 import Header from '../components/Header.astro';
-
-let { title } = siteConfig;
-let description = 'Showing Leos life in pictures';
+let description = 'This is a site which shows our son life in photogrphy';
 let permalink = 'https://leoadu.com/';
 
+const { imageUrl } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
 <html lang={lang} transition:animate="slide">
 	<head>
-		<BaseHead {title} {description} {permalink} />
+		<BaseHead title="Leo Adu's Photo Blog" {description} {permalink} {imageUrl}/>
 	</head>
 	<body>
     <Header />
