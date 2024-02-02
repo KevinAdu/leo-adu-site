@@ -4,12 +4,14 @@
   display: grid;
   grid-template-columns: auto 1fr;
   margin-bottom: 2rem;
+  padding-top: 1.25rem;
 }
 
 .site-header .site-header-logo {
   color: var(--header-font-color);
   display: inline-block;
   text-decoration: none;
+  height:fit-content;
 }
 
 
@@ -18,7 +20,7 @@
   max-width: 100%;
   text-transform: uppercase;
   line-height: 0.75;
-  margin-top: 1.25rem;
+  /* margin-top: 1.25rem; */
   font-family: 'Proxima Nova Semibold', sans-serif;
   font-size: var(--header-font-size);
 }
@@ -69,7 +71,7 @@
   cursor: pointer;
   display: flex;
   justify-self: flex-end;
-  margin-top: 1.5rem;
+  align-self: center;
 }
 
 .hamb-line {
