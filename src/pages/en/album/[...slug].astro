@@ -20,7 +20,7 @@ if (albumPhotos === undefined) {
   return Astro.redirect("/404");
 }
 ---
-<Layout>
+<Layout description=`Check out all the photos of Leo during this time period: ${i18n(slug as keyof typeof ui[typeof defaultLang])}`>
   <main class="show-album">
     <h2>{i18n(slug as keyof typeof ui[typeof defaultLang])}</h2>
     <p>{albumPhotos.length} PHOTOS</p>

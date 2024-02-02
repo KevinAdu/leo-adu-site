@@ -1,15 +1,15 @@
 ---
 interface Props {
+  description: string;
   imageUrl?: string;
 }
 
 import BaseHead from '../components/BaseHead.astro';
 import { getLangFromUrl } from '../i18n/utils';
 import Header from '../components/Header.astro';
-let description = 'This is a site which shows our son life in photogrphy';
 let permalink = 'https://leoadu.com/';
 
-const { imageUrl } = Astro.props;
+const { imageUrl, description } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 ---
 

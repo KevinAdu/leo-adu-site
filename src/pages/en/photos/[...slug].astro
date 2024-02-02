@@ -24,7 +24,7 @@ const selectedPhotoIndex = allPosts.findIndex((photo) => photo.id === entry.id);
 allPosts.splice(selectedPhotoIndex, 1);
 const filename = getCloudinaryFilename(entry.data.photo);
 ---
-<Layout>
+<Layout description=`${entry.data.caption}`>
   <main>
     <section class="show-photo-section">
       <img src=`${CLOUDINARY_URL_ROOT}f_auto/q_auto/${filename}` alt={entry.data.title} loading="lazy" width="100%"/>
