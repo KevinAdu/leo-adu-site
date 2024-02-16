@@ -7,7 +7,7 @@
   
   const birthDateTime = new Date(`January 1 2024 21:45:00`)
   const currentDateTime = new Date();
-  let differenceInTime = utcToZonedTime(currentDateTime, 'Asia/Tokyo') as unknown as number - utcToZonedTime(birthDateTime, 'Asia/Tokyo') as unknown as number;
+  let differenceInTime = utcToZonedTime(currentDateTime, 'Asia/Tokyo') as unknown as number - (birthDateTime as unknown as number);
   const msInHour = 1000 * 60 * 60;
   const totalHours = (Math.abs( differenceInTime) / msInHour);
   const runnningMonths = currentDateTime.getMonth() - birthDateTime.getMonth() + 12 * (currentDateTime.getFullYear() - birthDateTime.getFullYear());
