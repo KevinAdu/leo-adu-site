@@ -1,5 +1,5 @@
 ---
-title: Ladybug cloth
+title: Ladybug clothes
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1706106786/IMG_8326_tngkne.jpg
 caption: |-
   今日はてんとう虫の服🐞
