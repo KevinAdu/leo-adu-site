@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Album from '../../components/Album.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getAgeFromPublishDate } from '../../helpers/age';
 
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
@@ -12,11 +13,11 @@ const allPosts = await getCollection('photos', (photo) => {
   return photo.slug.startsWith('en')
 });
 
-const ages = allPosts.map(post => post.data.age);
+const ages = allPosts.map(post => getAgeFromPublishDate(post.data['publish-date']));
 const uniqueAgesSet = [ ...new Set(ages)];
 const albumInfo = uniqueAgesSet.map(age => {
   const allPhotosByAge = allPosts.filter(({data}) => {
-    return data.age === age;
+    return getAgeFromPublishDate(data['publish-date']) === age;
   });
 
   const createdDate = allPhotosByAge.reduce((acc, val) => {

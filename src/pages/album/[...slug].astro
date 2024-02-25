@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import PostPreview from "../../components/PostPreview.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import type { ui, defaultLang } from "../../i18n/ui";
+import { getAgeFromPublishDate } from "../../helpers/age";
 
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
@@ -13,7 +14,7 @@ if (slug === undefined) {
 }
 
 const albumPhotos = await getCollection("photos", (photo) => {
-  return photo.data.age === slug && !photo.slug.startsWith('en');
+  return getAgeFromPublishDate(photo.data["publish-date"]) === slug && !photo.slug.startsWith('en');
 });
 
 if (albumPhotos === undefined) {

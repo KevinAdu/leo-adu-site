@@ -7,7 +7,6 @@ const photoCollection = defineCollection({
     photo: z.string(),
     caption: z.string(),
     'publish-date': z.date(),
-    age: z.string(),
     tags: z.array(z.string()).optional(),
   })
 });

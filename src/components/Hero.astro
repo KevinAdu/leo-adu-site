@@ -1,11 +1,10 @@
----
-  
+---  
   import { getLangFromUrl, useTranslations } from "../i18n/utils";
   import { utcToZonedTime } from 'date-fns-tz'
   const lang = getLangFromUrl(Astro.url);
   const i18n = useTranslations(lang);
   
-  const birthDateTime = new Date(`January 1 2024 21:45:00`)
+  const birthDateTime = new Date(`January 1 2024 21:45:00`);
   const currentDateTime = new Date();
   let differenceInTime = utcToZonedTime(currentDateTime, 'Asia/Tokyo') as unknown as number - (birthDateTime as unknown as number);
   const msInHour = 1000 * 60 * 60;
