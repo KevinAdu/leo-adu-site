@@ -1,5 +1,5 @@
 ---
-title: His face says "What's?!"
+title: His face says "What?!"
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1708601719/IMG_8410_rxbxm7.jpg
 caption: |-
   生後17日目。
