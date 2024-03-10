@@ -1,9 +1,7 @@
 ---
 import { getCollection, getEntry } from "astro:content";
-import { defaultLang } from "../../../i18n/ui";
 import Layout from '../../../layouts/Layout.astro';
 import { format } from 'date-fns'
-import Navigation from "../../../components/Navigation.astro";
 import PostPreview from "../../../components/PostPreview.astro";
 import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from "../../../helpers/cloudinary";
 // 1. Get the slug from the incoming server request
@@ -12,7 +10,7 @@ if (slug === undefined) {
   throw new Error("Slug is required");
 }
 // 2. Query for the entry directly using the request slug
-const entry = await getEntry("photos", `${defaultLang}/${slug}`);
+const entry = await getEntry("photos", `en/${slug}`);
 // 3. Redirect if the entry does not exist
 if (entry === undefined) {
   return Astro.redirect("/404");
