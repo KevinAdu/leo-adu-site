@@ -1,5 +1,5 @@
 ---
-title: Posing like Ghost
+title: Posing like a ghost
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1711954980/IMG_8480_xzqiqa.jpg
 caption: |-
   生後21日目。
