@@ -1,5 +1,5 @@
 ---
-title: 1month birthday! 2
+title: 1 month birthday! Part 2
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1713364998/IMG_8686_eojyl4.jpg
 caption: |-
   1ヵ月バースデーおめでとう♪
