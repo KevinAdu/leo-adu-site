@@ -1,5 +1,5 @@
 ---
-title: 1month birthday! 3
+title: 1 month birthday! Part 3
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1713364994/IMG_8692_gc3jgh.jpg
 caption: |-
   今日から新生児じゃなくて乳児！
