@@ -1,4 +1,5 @@
 ---
+title: 1 month birthday! Part 3
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1713364994/IMG_8692_gc3jgh.jpg
 caption: |
   From today he has stopped being a newborn and now has become an infant!
