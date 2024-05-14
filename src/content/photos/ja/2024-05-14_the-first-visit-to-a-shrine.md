@@ -1,9 +1,6 @@
 ---
-title: The first visit to a shrine
-photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1715696376/IMG_8823_bbsz8p.jpg
-caption: |-
-  お宮参り。
-  Auntieがレオくんを神社に連れて行ってくれたよ。
-  みんながたくさんの紐銭を着物につけてくれて、よかったね。レオくんが一生お金に困りませんように。
-publish-date: 2024-02-11T23:33:00.000Z
+title: Sneezing
+photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1715696375/2B522C80-D167-432E-A0B9-A2E21058F077_kj31f8.jpg
+caption: 神主さんが祈祷あげてる間、レオ君はずっとイビキをかきながら寝てた😂大きな太鼓の音が鳴っても起きなくて、神主さんが「これは大物になるわぁ」と言ってたよ。
+publish-date: 2024-02-11T23:35:00.000Z
 ---
