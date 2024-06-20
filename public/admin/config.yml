@@ -17,7 +17,7 @@ collections:
     label: Photos
     folder: "src/content/photos"
     slug: "{{year}}-{{month}}-{{day}}_{{title}}"
-    summary: "{{title}} Author: {{commit_author}}"
+    summary: "{{title}} ({{year}}-{{month}}-{{day}})"
     i18n: true
     create: true
     delete: true
