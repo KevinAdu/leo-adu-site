@@ -1,5 +1,5 @@
 ---
-title: May you'll be wealthy.
+title: May you be wealthy.
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1715696376/IMG_8823_bbsz8p.jpg
 caption: |-
   みんなからいっぱい紐銭をもらったね。
