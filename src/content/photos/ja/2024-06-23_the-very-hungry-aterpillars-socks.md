@@ -1,5 +1,5 @@
 ---
-title: The very hungry aterpillar's socks!
+title: The very hungry caterpillar's socks!
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1719151399/IMG_9764_p34j6z.jpg
 caption: |-
   はらぺこ青虫のコーディネート！
