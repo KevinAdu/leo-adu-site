@@ -1,5 +1,5 @@
 ---
-title: He's staring an elephant!
+title: He's staring at the elephant!
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1716214829/IMG_9046_pstjzs.jpg
 caption: |-
   バウンサーでゆらゆら揺れるゾウさんを見つめてる。
