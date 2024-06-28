@@ -1,5 +1,5 @@
 ---
-title: Happy 2month birthday!
+title: Happy 2 month birthday!
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1716472316/IMG_9136_xym2iy.jpg
 caption: |-
   レオ君 2ヶ月のお誕生日おめでとう！
