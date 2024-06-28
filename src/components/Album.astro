@@ -1,7 +1,7 @@
 ---
-import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from '../helpers/cloudinary';
+import { CLOUDINARY_URL_ROOT, getCloudinaryFilename, } from '../helpers/cloudinary';
 import type { ui, defaultLang } from '../i18n/ui';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 interface Props {
   albumInfo: {
     age: string;
@@ -14,9 +14,10 @@ interface Props {
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
 const { albumInfo, compact } = Astro.props;
-const filename = getCloudinaryFilename(albumInfo.coverImagePath)
+const filename = getCloudinaryFilename(albumInfo.coverImagePath);
+const translatePath = useTranslatedPath(lang);
 ---
-<a href=`/album/${albumInfo.age}`>
+<a href={translatePath(`/album/${albumInfo.age}`)}>
 <article class=`album ${compact && 'compact'}`>
   <img src=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto${filename}` loading="lazy" />
   <h2 class="h4">{i18n(albumInfo.age as keyof typeof ui[typeof defaultLang])}</h2>

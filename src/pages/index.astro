@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Album from '../components/Album.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
 import { getAgeFromPublishDate } from '../helpers/age';
 
 const lang = getLangFromUrl(Astro.url);
@@ -33,7 +33,7 @@ const albumInfo = uniqueAgesSet.map(age => {
 });
 const PHOTO_LIMIT = 6;
 const ALBUM_LIMIT = 2;
-console.log(new Date(allPosts[0].data['publish-date']))
+const translatePath = useTranslatedPath(lang);
 ---
 
 <Layout description="Check out our son Leo's life through photography. As he grows up we document his life with pictures so you can experience the joy he gives us every day.">
@@ -45,7 +45,7 @@ console.log(new Date(allPosts[0].data['publish-date']))
         .slice(0, PHOTO_LIMIT)
         .map((p) => <PostPreview post={p} />)
       }
-      <a href="/all-photos">{i18n('more_photos')}</a>
+      <a href={translatePath("/all-photos")}>{i18n('more_photos')}</a>
     </section>
     <section class="albums-grid" aria-label="Latest YouTube Video">
     <iframe width="100%" height="350px"
@@ -63,7 +63,7 @@ console.log(new Date(allPosts[0].data['publish-date']))
         .slice(0, ALBUM_LIMIT)
         .map((album) => <Album compact albumInfo={album} />)
       }
-      <a href="/albums">{i18n('more_albums')}</a>
+      <a href={translatePath("/albums")}>{i18n('more_albums')}</a>
     </section>
   </main>		
 </Layout/>

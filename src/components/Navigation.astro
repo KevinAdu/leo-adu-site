@@ -1,8 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 <!-- Hamburger icon -->
 <input class="side-menu" type="checkbox" id="side-menu"/>
@@ -12,10 +13,10 @@ const i18n = useTranslations(lang);
 <nav class="nav">
   <ul class="nav-links">
     <li>
-      <a href="/all-photos" class={Astro.url.pathname === "/photos" ? 'active' : ''}>{i18n('common.photos')}</a>
+      <a href={translatePath('/all-photos')} class={Astro.url.pathname === "/photos" ? 'active' : ''}>{i18n('common.photos')}</a>
     </li>
     <li>
-      <a href="/albums" class={Astro.url.pathname === "/albums" ? 'active' : ''}>{i18n('common.albums')}</a>
+      <a href={translatePath('/albums')} class={Astro.url.pathname === "/albums" ? 'active' : ''}>{i18n('common.albums')}</a>
     </li>
     <li>
       <a target="_blank" href="https://www.amazon.co.jp/hz/wishlist/ls/14YLPV1W3RU3B/ref=nav_wishlist_lists_2">{i18n('tabs.wishlist')}</a>

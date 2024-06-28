@@ -7,5 +7,9 @@ export default defineConfig({
   adapter: netlify(),
   image: {
     domains: ["astro.build"],
-  }
+  },
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+   },
 });
