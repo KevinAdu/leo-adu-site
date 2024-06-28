@@ -1,5 +1,5 @@
 ---
-title: Yankee's cloth
+title: Delinquent's clothes
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1719151400/IMG_9779_pydy3q.jpg
 caption: |
   新しい服を買ったけど、なんだかヤンキーの財布みたいな服だね😂
