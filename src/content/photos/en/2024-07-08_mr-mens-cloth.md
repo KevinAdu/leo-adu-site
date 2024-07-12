@@ -1,4 +1,5 @@
 ---
+title: Mr. Men's clothes!
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1719411540/IMG_9786_wum4lt.jpg
 caption: >-
   Leo went to meet a friend who was born 1 month apart!
