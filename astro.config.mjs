@@ -8,6 +8,15 @@ export default defineConfig({
   image: {
     domains: ["astro.build"],
   },
+  vite: {
+    ssr: {
+      noExternal: [
+        "@better-auth-kit/app-invite",
+        "@better-auth-kit/app-invite/client",
+        "better-auth",
+      ],
+    },
+  },
   i18n: {
     defaultLocale: 'ja',
     locales: ['ja', 'en'],
