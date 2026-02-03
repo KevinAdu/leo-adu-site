@@ -1,4 +1,4 @@
-import appInvitePkg from "@better-auth-kit/app-invite";
+import * as appInvitePkg from "@better-auth-kit/app-invite";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { sendEmail } from "./lib/email";
@@ -14,7 +14,14 @@ export const createAuth = (options: CreateAuthOptions = {}) => {
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
 
-  const { appInvite } = appInvitePkg;
+  const appInvite =
+    (appInvitePkg as any).appInvite ??
+    (appInvitePkg as any).default?.appInvite ??
+    (appInvitePkg as any).default;
+
+  if (typeof appInvite !== "function") {
+    throw new Error("appInvite export not found in @better-auth-kit/app-invite");
+  }
 
   const allowSignUp =
     options.allowSignUp ?? import.meta.env.ALLOW_SIGNUP === "true";
