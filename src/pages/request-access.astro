@@ -40,6 +40,16 @@ const title = i18n("request.title");
         display: grid;
         gap: 1rem;
       }
+      .status {
+        margin: 0;
+        min-height: 1.25rem;
+      }
+      .status.error {
+        color: #b43f2f;
+      }
+      .status.success {
+        color: #2f6f3e;
+      }
       label {
         display: grid;
         gap: 0.5rem;
@@ -69,9 +79,6 @@ const title = i18n("request.title");
         font-weight: 600;
         cursor: pointer;
       }
-      .status {
-        margin-top: 1rem;
-      }
       .muted {
         color: #6b6558;
       }
@@ -81,7 +88,7 @@ const title = i18n("request.title");
     <main>
       <h1>{i18n("request.title")}</h1>
       <p class="muted">{i18n("request.subtitle")}</p>
-      <form id="request-form">
+      <form id="request-form" novalidate>
         <label>
           {i18n("request.first_name")}
           <input type="text" name="firstName" autocomplete="given-name" required />
@@ -107,43 +114,55 @@ const title = i18n("request.title");
         </fieldset>
         <input type="hidden" name="token" value={tokenParam} />
         <button type="submit">{i18n("request.submit")}</button>
+        <p id="request-status" class="status success" role="status" aria-live="polite"></p>
+        <p id="request-error" class="status error" role="alert" aria-live="polite"></p>
       </form>
-      <p id="request-status" class="status" role="status"></p>
-      <p id="request-error" class="status" role="alert"></p>
     </main>
 
     <script type="module">
       const form = document.getElementById("request-form");
       const statusEl = document.getElementById("request-status");
       const errorEl = document.getElementById("request-error");
-      const messages = {
-        success: ${JSON.stringify(i18n("request.success"))},
-        error: ${JSON.stringify(i18n("request.error"))},
-      };
+      const submitButton = form?.querySelector('button[type="submit"]');
+      const messages = {JSON.stringify({
+        success: i18n("request.success"),
+        error: i18n("request.error"),
+      })};
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         statusEl.textContent = "";
         errorEl.textContent = "";
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.setAttribute("aria-busy", "true");
+        }
 
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
+        try {
+          const response = await fetch("/api/access-requests", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
 
-        const response = await fetch("/api/access-requests", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+          const data = await response.json().catch(() => ({}));
 
-        const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            errorEl.textContent = data?.error || messages.error;
+            return;
+          }
 
-        if (!response.ok) {
-          errorEl.textContent = data?.error || messages.error;
-          return;
+          statusEl.textContent = data?.message || messages.success;
+        } catch (error) {
+          errorEl.textContent = messages.error;
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.removeAttribute("aria-busy");
+          }
         }
-
-        statusEl.textContent = data?.message || messages.success;
-        form.reset();
       });
     </script>
   </body>
