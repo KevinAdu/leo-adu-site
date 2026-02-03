@@ -6,10 +6,11 @@ import { format } from 'date-fns'
 import PostPreview from "../../components/PostPreview.astro";
 import { getCloudinaryFilename, CLOUDINARY_URL_ROOT } from "../../helpers/cloudinary";
 // 1. Get the slug from the incoming server request
-const { slug } = Astro.params;
-if (slug === undefined) {
-  throw new Error("Slug is required");
+const slugParam = Astro.params.slug;
+if (!slugParam || (Array.isArray(slugParam) && slugParam.length === 0)) {
+  return Astro.redirect("/photos");
 }
+const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
 // 2. Query for the entry directly using the request slug
 const entry = await getEntry("photos", `${defaultLang}/${slug}`);
 // 3. Redirect if the entry does not exist
@@ -27,8 +28,10 @@ const filename = getCloudinaryFilename(entry.data.photo);
   <main>
     <section class="show-photo-section">
       <img src=`${CLOUDINARY_URL_ROOT}f_auto/q_auto/${filename}` alt={entry.data.title} loading="lazy" width="100%"/>
-      <p>{entry.data.caption}</p>
-      <time>{format(entry.data["publish-date"], 'dd MMM yyyy')}</time>
+      <div class="photo-details">
+        <p>{entry.data.caption}</p>
+        <time>{format(entry.data["publish-date"], 'dd MMM yyyy')}</time>
+      </div>
       <h3 class="h5-font-size">More Photos</h3>
       <div class="photos-grid" aria-label="Photo Post List">
       {allPosts

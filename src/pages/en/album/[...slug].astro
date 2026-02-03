@@ -2,16 +2,16 @@
 import { getCollection } from "astro:content";
 import Layout from '../../../layouts/Layout.astro';
 import PostPreview from "../../../components/PostPreview.astro";
-import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
-import type { ui, defaultLang } from "../../../i18n/ui";
-import { getAgeFromPublishDate } from "../../../helpers/age";
+import { getLangFromUrl } from "../../../i18n/utils";
+import { getAgeFromPublishDate, getAgeLabel } from "../../../helpers/age";
 
 const lang = getLangFromUrl(Astro.url);
-const i18n = useTranslations(lang);
-const { slug } = Astro.params;
-if (slug === undefined) {
-  throw new Error("Slug is required");
+const slugParam = Astro.params.slug;
+if (!slugParam || (Array.isArray(slugParam) && slugParam.length === 0)) {
+  return Astro.redirect("/en/albums");
 }
+const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+const ageLabel = getAgeLabel(slug, lang);
 
 const albumPhotos = await getCollection("photos", (photo) => {
   return getAgeFromPublishDate(photo.data["publish-date"]) === slug && photo.slug.startsWith('en');
@@ -21,9 +21,9 @@ if (albumPhotos === undefined) {
   return Astro.redirect("/404");
 }
 ---
-<Layout description=`Check out all the photos of Leo during this time period: ${i18n(slug as keyof typeof ui[typeof defaultLang])}`>
+<Layout description={`Check out all the photos of Leo during this time period: ${ageLabel}`}>
   <main class="show-album">
-    <h2>{i18n(slug as keyof typeof ui[typeof defaultLang])}</h2>
+    <h2>{ageLabel}</h2>
     <p>{albumPhotos.length} PHOTOS</p>
     <section class="photos-grid" aria-label="Photo Post List">
       {albumPhotos

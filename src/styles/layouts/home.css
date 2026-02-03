@@ -10,29 +10,46 @@
 @media (min-width: 768px) {
   .home-layout {
     display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 2fr 3fr;
-    gap: 2rem;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-areas:
+      "hero hero"
+      "photos albums";
+    gap: 2.5rem;
+    align-items: start;
+    margin: 0 auto 3rem;
+    max-width: 1100px;
 
     .hero {
-      grid-column: span 2;
+      grid-area: hero;
     }
 
     .photos-grid {
+      grid-area: photos;
       margin-bottom: 0;
+      gap: 0.75rem;
     }
     
     .albums-grid {
+      grid-area: albums;
       display: grid;
-      grid-template-rows: 1fr 1fr auto;
+      grid-template-rows: repeat(2, auto) auto;
+      gap: 0.75rem;
+      align-content: start;
 
       a {
         display: inline-block;
+        justify-self: end;
+        grid-column: 1 / -1;
       }
       .compact {
-        margin-bottom: 0.5rem;
-        height: 164.719px;
+        margin-bottom: 0;
+        height: 140px;
       }
+    }
+
+    .photos-grid a {
+      grid-column: 1 / -1;
+      justify-self: end;
     }
   }
 }

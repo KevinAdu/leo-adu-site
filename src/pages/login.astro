@@ -1,0 +1,68 @@
+---
+const title = "Sign in";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+      <form id="login-form">
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">Sign in</button>
+      </form>
+      <p id="login-error" role="alert"></p>
+    </main>
+
+    <script type="module">
+      import { authClient } from "../lib/auth-client";
+
+      const form = document.getElementById("login-form");
+      const errorEl = document.getElementById("login-error");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.textContent = "";
+
+        const formData = new FormData(form);
+        const email = String(formData.get("email") || "");
+        const password = String(formData.get("password") || "");
+
+        const { data, error } = await authClient.signIn.email({
+          email,
+          password,
+          callbackURL: "/",
+        });
+
+        if (error) {
+          errorEl.textContent = error.message || "Sign-in failed.";
+          return;
+        }
+
+        if (data?.url) {
+          window.location.href = data.url;
+          return;
+        }
+
+        window.location.href = "/";
+      });
+    </script>
+  </body>
+</html>

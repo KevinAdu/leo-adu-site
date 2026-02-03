@@ -1,0 +1,150 @@
+---
+import { useTranslations } from "../i18n/utils";
+
+const tokenParam = Astro.url.searchParams.get("token") ?? "";
+const expectedToken = import.meta.env.REQUEST_ACCESS_TOKEN ?? "";
+
+if (!expectedToken || tokenParam !== expectedToken) {
+  return Astro.redirect("/invite-only");
+}
+
+const acceptLanguage = Astro.request.headers.get("accept-language") ?? "";
+const prefersJapanese = acceptLanguage.toLowerCase().includes("ja");
+const lang = prefersJapanese ? "ja" : "en";
+const i18n = useTranslations(lang);
+const title = i18n("request.title");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f7f3ea;
+        color: #2b2b2b;
+      }
+      main {
+        max-width: 720px;
+        margin: 10vh auto;
+        padding: 2rem;
+        background: #fffdf7;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      form {
+        display: grid;
+        gap: 1rem;
+      }
+      label {
+        display: grid;
+        gap: 0.5rem;
+        font-weight: 600;
+      }
+      input {
+        padding: 0.6rem 0.7rem;
+        border: 1px solid #d5cbb5;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+      fieldset {
+        border: 1px solid #e5ddc7;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      legend {
+        padding: 0 0.5rem;
+        font-weight: 600;
+      }
+      button {
+        padding: 0.7rem 1rem;
+        border: none;
+        border-radius: 6px;
+        background: #7a5d2e;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .status {
+        margin-top: 1rem;
+      }
+      .muted {
+        color: #6b6558;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{i18n("request.title")}</h1>
+      <p class="muted">{i18n("request.subtitle")}</p>
+      <form id="request-form">
+        <label>
+          {i18n("request.first_name")}
+          <input type="text" name="firstName" autocomplete="given-name" required />
+        </label>
+        <label>
+          {i18n("request.last_name")}
+          <input type="text" name="lastName" autocomplete="family-name" required />
+        </label>
+        <label>
+          {i18n("request.email")}
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <fieldset>
+          <legend>{i18n("request.language_label")}</legend>
+          <label>
+            <input type="radio" name="language" value="en" checked={!prefersJapanese} />
+            {i18n("request.language_en")}
+          </label>
+          <label>
+            <input type="radio" name="language" value="ja" checked={prefersJapanese} />
+            {i18n("request.language_ja")}
+          </label>
+        </fieldset>
+        <input type="hidden" name="token" value={tokenParam} />
+        <button type="submit">{i18n("request.submit")}</button>
+      </form>
+      <p id="request-status" class="status" role="status"></p>
+      <p id="request-error" class="status" role="alert"></p>
+    </main>
+
+    <script type="module">
+      const form = document.getElementById("request-form");
+      const statusEl = document.getElementById("request-status");
+      const errorEl = document.getElementById("request-error");
+      const messages = {
+        success: ${JSON.stringify(i18n("request.success"))},
+        error: ${JSON.stringify(i18n("request.error"))},
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        statusEl.textContent = "";
+        errorEl.textContent = "";
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/api/access-requests", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          errorEl.textContent = data?.error || messages.error;
+          return;
+        }
+
+        statusEl.textContent = data?.message || messages.success;
+        form.reset();
+      });
+    </script>
+  </body>
+</html>

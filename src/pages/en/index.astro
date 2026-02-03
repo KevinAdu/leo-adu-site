@@ -47,16 +47,6 @@ const ALBUM_LIMIT = 2;
       }
       <a href="/en/all-photos">{i18n('more_photos')}</a>
     </section>
-    <section class="albums-grid" aria-label="Latest YouTube Video">
-    <iframe width="100%" height="350px"
-      src="https://www.youtube.com/embed/3RSbmir1jto?si=QejPmcaKQLhayy48"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-    <a href="https://www.youtube.com/@LeoAdu">{i18n('more_videos')}</a>
-  </section>
     <section class="albums-grid" aria-label="Albums List">
       {albumInfo
         .sort((a, b) => a.createdDate > b.createdDate ? -1 : 1 )

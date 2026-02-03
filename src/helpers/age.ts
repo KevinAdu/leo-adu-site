@@ -1,39 +1,39 @@
 import { differenceInDays, differenceInMonths } from "date-fns";
+import { defaultLang, ui } from "../i18n/ui";
+
+const LEOS_BIRTHDAY = new Date("2024-01-01T21:45:00+09:00");
+const AGE_PREFIX = "album.";
+
+const getMonthKey = (months: number) =>
+  months === 1 ? `${AGE_PREFIX}1_month_old` : `${AGE_PREFIX}${months}_months_old`;
 
 export const getAgeFromPublishDate = (publishDate: Date): string => {
-  const LEOS_BIRTHDAY = new Date(`January 1 2024 21:45:00`);
-  if (differenceInDays(publishDate, LEOS_BIRTHDAY) < 0)
-    return "album.before_birth";
-  if (differenceInDays(publishDate, LEOS_BIRTHDAY) < 7)
-    return "album.few_days_old";
-  if (differenceInDays(publishDate, LEOS_BIRTHDAY) >= 7 
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 1
-  )
-    return "album.few_weeks_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 1
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 2
-  )
-    return "album.1_month_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 2
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 3
-  )
-    return "album.2_months_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 3
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 4
-  )
-    return "album.3_months_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 4
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 5
-  )
-    return "album.4_months_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 5
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 6
-  )
-    return "album.5_months_old"
-  if (differenceInMonths(publishDate, LEOS_BIRTHDAY) >= 6
-    && differenceInMonths(publishDate, LEOS_BIRTHDAY) < 7
-  )
-    return "album.6_months_old"
-   
-  return '';
-}
+  const daysDiff = differenceInDays(publishDate, LEOS_BIRTHDAY);
+  if (daysDiff < 0) return `${AGE_PREFIX}before_birth`;
+  if (daysDiff < 7) return `${AGE_PREFIX}few_days_old`;
+
+  const monthsDiff = differenceInMonths(publishDate, LEOS_BIRTHDAY);
+  if (monthsDiff < 1) return `${AGE_PREFIX}few_weeks_old`;
+
+  return getMonthKey(monthsDiff);
+};
+
+export const getAgeLabel = (
+  ageKey: string,
+  lang: keyof typeof ui,
+): string => {
+  if (ageKey.startsWith(AGE_PREFIX)) {
+    const monthMatch = ageKey.match(/^album\.(\d+)_month(?:s)?_old$/);
+    if (monthMatch) {
+      const months = Number(monthMatch[1]);
+      if (lang === "ja") {
+        return `${months}ヶ月`;
+      }
+      return `${months} Month${months === 1 ? "" : "s"} Old`;
+    }
+  }
+
+  const base = ui[lang] as Record<string, string>;
+  const fallback = ui[defaultLang] as Record<string, string>;
+  return base[ageKey] ?? fallback[ageKey] ?? ageKey;
+};

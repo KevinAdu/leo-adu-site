@@ -1,0 +1,184 @@
+---
+import { eq } from "drizzle-orm";
+import { accessRequest } from "../../db/schema";
+import { useTranslations } from "../../i18n/utils";
+import { db } from "../../lib/db";
+
+const { id } = Astro.params;
+
+const requestInfo = id
+  ? (
+      await db
+        .select()
+        .from(accessRequest)
+        .where(eq(accessRequest.invitationId, id))
+        .limit(1)
+    )[0]
+  : null;
+
+const acceptLanguage = Astro.request.headers.get("accept-language") ?? "";
+const prefersJapanese =
+  requestInfo?.language === "ja" || acceptLanguage.toLowerCase().includes("ja");
+const lang = prefersJapanese ? "ja" : "en";
+const i18n = useTranslations(lang);
+const title = i18n("invite.title");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+      <form id="invite-form" data-invitation-id={id}>
+        <label>
+          {i18n("invite.first_name")}
+          <input
+            type="text"
+            name="firstName"
+            autocomplete="given-name"
+            value={requestInfo?.firstName ?? ""}
+            required
+          />
+        </label>
+        <label>
+          {i18n("invite.last_name")}
+          <input
+            type="text"
+            name="lastName"
+            autocomplete="family-name"
+            value={requestInfo?.lastName ?? ""}
+            required
+          />
+        </label>
+        <label>
+          {i18n("invite.email")}
+          <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            value={requestInfo?.email ?? ""}
+            required
+          />
+        </label>
+        <fieldset>
+          <legend>{i18n("invite.language_label")}</legend>
+          <label>
+            <input
+              type="radio"
+              name="language"
+              value="en"
+              checked={!prefersJapanese}
+            />
+            {i18n("invite.language_en")}
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="language"
+              value="ja"
+              checked={prefersJapanese}
+            />
+            {i18n("invite.language_ja")}
+          </label>
+        </fieldset>
+        <label>
+          {i18n("invite.password")}
+          <input
+            type="password"
+            name="password"
+            autocomplete="new-password"
+            required
+          />
+        </label>
+        <label>
+          {i18n("invite.confirm_password")}
+          <input
+            type="password"
+            name="confirmPassword"
+            autocomplete="new-password"
+            required
+          />
+        </label>
+        <button type="submit">{i18n("invite.submit")}</button>
+      </form>
+      <p id="invite-error" role="alert"></p>
+      <p id="invite-success" role="status"></p>
+    </main>
+
+    <script type="module">
+      import { authClient } from "../../lib/auth-client";
+
+      const form = document.getElementById("invite-form");
+      const errorEl = document.getElementById("invite-error");
+      const successEl = document.getElementById("invite-success");
+      const messages = {
+        missingId: ${JSON.stringify(i18n("invite.error_missing_id"))},
+        passwordMismatch: ${JSON.stringify(i18n("invite.error_password_mismatch"))},
+        failed: ${JSON.stringify(i18n("invite.error_failed"))},
+        success: ${JSON.stringify(i18n("invite.success"))},
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.textContent = "";
+        successEl.textContent = "";
+
+        const formData = new FormData(form);
+        const invitationId = form.dataset.invitationId;
+        const firstName = String(formData.get("firstName") || "");
+        const lastName = String(formData.get("lastName") || "");
+        const email = String(formData.get("email") || "");
+        const language = String(formData.get("language") || "en");
+        const password = String(formData.get("password") || "");
+        const confirmPassword = String(formData.get("confirmPassword") || "");
+
+        if (!invitationId) {
+          errorEl.textContent = messages.missingId;
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          errorEl.textContent = messages.passwordMismatch;
+          return;
+        }
+
+        const { error } = await authClient.acceptInvitation({
+          invitationId,
+          name: `${firstName} ${lastName}`.trim() || undefined,
+          email: email || undefined,
+          password,
+          firstName,
+          lastName,
+          language,
+        });
+
+        if (error) {
+          errorEl.textContent = error.message || messages.failed;
+          return;
+        }
+
+        const profileResponse = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ firstName, lastName, language }),
+        });
+
+        if (!profileResponse.ok && profileResponse.status === 401) {
+          await authClient.signIn.email({
+            email,
+            password,
+            callbackURL: "/",
+          });
+        }
+
+        successEl.textContent = messages.success;
+        window.location.href = "/";
+      });
+    </script>
+  </body>
+</html>

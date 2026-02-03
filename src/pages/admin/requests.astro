@@ -1,0 +1,196 @@
+---
+import { desc, eq, ne } from "drizzle-orm";
+import { db } from "../../lib/db";
+import { accessRequest } from "../../db/schema";
+
+const title = "Access requests";
+const pendingRequests = await db
+  .select()
+  .from(accessRequest)
+  .where(eq(accessRequest.status, "pending"))
+  .orderBy(desc(accessRequest.createdAt));
+
+const reviewedRequests = await db
+  .select()
+  .from(accessRequest)
+  .where(ne(accessRequest.status, "pending"))
+  .orderBy(desc(accessRequest.reviewedAt))
+  .limit(20);
+
+const appUrl = import.meta.env.APP_URL ?? Astro.url.origin;
+const requestToken = import.meta.env.REQUEST_ACCESS_TOKEN ?? "";
+const requestLink = requestToken
+  ? `${appUrl}/request-access?token=${requestToken}`
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f7f3ea;
+        color: #2b2b2b;
+      }
+      main {
+        max-width: 980px;
+        margin: 8vh auto;
+        padding: 2rem;
+        background: #fffdf7;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 0.6rem;
+        border-bottom: 1px solid #e6dcc8;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      button {
+        padding: 0.4rem 0.8rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      button.approve {
+        background: #3f7d44;
+        color: #fff;
+      }
+      button.deny {
+        background: #a23c3c;
+        color: #fff;
+      }
+      .muted {
+        color: #6b6558;
+      }
+      .link-box {
+        padding: 0.75rem 1rem;
+        background: #f3eddc;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+      {requestLink ? (
+        <div class="link-box">
+          <strong>Request link:</strong>
+          <div>{requestLink}</div>
+        </div>
+      ) : (
+        <p class="muted">
+          REQUEST_ACCESS_TOKEN is not set. Add it to `.env` to enable requests.
+        </p>
+      )}
+
+      <h2>Pending</h2>
+      {pendingRequests.length ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Language</th>
+              <th>Requested</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pendingRequests.map((req) => (
+              <tr>
+                <td>{req.firstName} {req.lastName}</td>
+                <td>{req.email}</td>
+                <td>{req.language}</td>
+                <td>{req.createdAt?.toLocaleString?.() ?? ""}</td>
+                <td>
+                  <div class="actions">
+                    <button class="approve" data-action="approve" data-id={req.id}>
+                      Approve
+                    </button>
+                    <button class="deny" data-action="deny" data-id={req.id}>
+                      Deny
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p class="muted">No pending requests.</p>
+      )}
+
+      <h2>Recently reviewed</h2>
+      {reviewedRequests.length ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Reviewed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reviewedRequests.map((req) => (
+              <tr>
+                <td>{req.firstName} {req.lastName}</td>
+                <td>{req.email}</td>
+                <td>{req.status}</td>
+                <td>{req.reviewedAt?.toLocaleString?.() ?? ""}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p class="muted">No reviewed requests yet.</p>
+      )}
+    </main>
+
+    <script type="module">
+      const handleAction = async (event) => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+        const id = button.dataset.id;
+        const action = button.dataset.action;
+        if (!id || !action) return;
+
+        button.disabled = true;
+        const response = await fetch(`/api/access-requests/${action}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          const payload = await response.json().catch(() => ({}));
+          alert(payload?.error || "Request failed.");
+          button.disabled = false;
+        }
+      };
+
+      document.addEventListener("click", handleAction);
+    </script>
+  </body>
+</html>
+

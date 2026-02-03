@@ -1,0 +1,56 @@
+---
+const title = "Invite users";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+      <p>
+        <a href="/admin/requests">View access requests</a>
+      </p>
+      <form id="invite-form">
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <button type="submit">Send invite</button>
+      </form>
+      <p id="invite-error" role="alert"></p>
+      <p id="invite-success" role="status"></p>
+    </main>
+
+    <script type="module">
+      import { authClient } from "../../lib/auth-client";
+
+      const form = document.getElementById("invite-form");
+      const errorEl = document.getElementById("invite-error");
+      const successEl = document.getElementById("invite-success");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.textContent = "";
+        successEl.textContent = "";
+
+        const formData = new FormData(form);
+        const email = String(formData.get("email") || "");
+
+        const { error } = await authClient.inviteUser({ email });
+
+        if (error) {
+          errorEl.textContent = error.message || "Invite failed.";
+          return;
+        }
+
+        successEl.textContent = "Invite sent.";
+        form.reset();
+      });
+    </script>
+  </body>
+</html>

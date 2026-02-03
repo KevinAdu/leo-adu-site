@@ -1,0 +1,24 @@
+---
+import PostPreview from "../../components/PostPreview.astro";
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const i18n = useTranslations(lang);
+const allPosts = await getCollection("photos", (photo) => {
+  return !photo.slug.startsWith("en");
+});
+---
+
+<Layout description="Here are all the photos we have taken so far of Leo Adu">
+  <main class="all-photos-layout">
+    <h2>{i18n("common.photos")}</h2>
+    <h3>Leo's life covered in photography</h3>
+    <section class="photos-grid" aria-label="Photo Post List">
+      {allPosts
+        .sort((a, b) => (a.data["publish-date"] > b.data["publish-date"] ? -1 : 1))
+        .map((p) => <PostPreview post={p} />)}
+    </section>
+  </main>
+</Layout>

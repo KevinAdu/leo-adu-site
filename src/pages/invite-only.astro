@@ -1,0 +1,58 @@
+---
+const title = "Invite-only site";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f7f3ea;
+        color: #2b2b2b;
+      }
+      main {
+        max-width: 720px;
+        margin: 10vh auto;
+        padding: 2rem;
+        background: #fffdf7;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      h1 {
+        margin-top: 0;
+      }
+      p {
+        line-height: 1.7;
+      }
+      a {
+        color: #7a5d2e;
+        font-weight: 600;
+      }
+      .actions {
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Leo Adu’s photo site is invite‑only</h1>
+      <p>
+        This is a private family photo journal. Access is limited to invited
+        guests.
+      </p>
+      <p>
+        If you already have an account, sign in below. If you need access,
+        please request an invite from the site owner.
+      </p>
+      <div class="actions">
+        <a href="/login">Sign in</a>
+      </div>
+    </main>
+  </body>
+</html>
+

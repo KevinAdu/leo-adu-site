@@ -1,0 +1,149 @@
+---
+import { APIError } from "better-auth/api";
+import { createAuth } from "../auth";
+import { db } from "../lib/db";
+import { user } from "../db/schema";
+
+const title = "Bootstrap admin";
+const bootstrapToken = import.meta.env.BOOTSTRAP_ADMIN_TOKEN;
+const adminEmails = (import.meta.env.ADMIN_EMAILS ?? "")
+  .split(",")
+  .map((email) => email.trim().toLowerCase())
+  .filter(Boolean);
+
+let hasUsers = false;
+let dbError = "";
+
+try {
+  const existingUsers = await db.select({ id: user.id }).from(user).limit(1);
+  hasUsers = existingUsers.length > 0;
+} catch (error) {
+  const details = error instanceof Error ? error.message : "Unknown error";
+  const redactedUrl = (() => {
+    const url = import.meta.env.DATABASE_URL;
+    if (!url) return "DATABASE_URL is not set";
+    try {
+      const parsed = new URL(url);
+      if (parsed.password) {
+        parsed.password = "****";
+      }
+      return parsed.toString();
+    } catch {
+      return url.replace(/:(.*?)@/, ":****@");
+    }
+  })();
+
+  dbError =
+    `Database is not ready (${details}). ` +
+    `DATABASE_URL: ${redactedUrl}. ` +
+    'If you\'re using Supabase, set DATABASE_SSL="true" in .env and restart the dev server. ' +
+    "Otherwise run `npm run db:push` (or apply migrations) to create tables, then refresh.";
+}
+
+let errorMessage = "";
+let successMessage = "";
+let createdEmail = "";
+
+if (Astro.request.method === "POST" && !hasUsers && !dbError) {
+  const formData = await Astro.request.formData();
+  const name = String(formData.get("name") || "").trim();
+  const email = String(formData.get("email") || "")
+    .trim()
+    .toLowerCase();
+  const password = String(formData.get("password") || "");
+  const token = String(formData.get("token") || "");
+
+  if (bootstrapToken && token !== bootstrapToken) {
+    errorMessage = "Invalid bootstrap token.";
+  } else if (!name || !email || !password) {
+    errorMessage = "Name, email, and password are required.";
+  } else {
+    const bootstrapAuth = createAuth({ allowSignUp: true });
+
+    try {
+      await bootstrapAuth.api.signUpEmail({
+        body: {
+          name,
+          email,
+          password,
+        },
+      });
+      successMessage = "User created. You can now sign in at /login.";
+      createdEmail = email;
+    } catch (error) {
+      if (error instanceof APIError) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = "Bootstrap failed. Check server logs for details.";
+      }
+    }
+  }
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+
+      {
+        dbError ? (
+          <p role="alert">{dbError}</p>
+        ) : hasUsers ? (
+          <p>Bootstrap is disabled because at least one user already exists.</p>
+        ) : (
+          <form method="post">
+            <label>
+              Name
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                autocomplete="new-password"
+                required
+              />
+            </label>
+            {bootstrapToken ? (
+              <label>
+                Bootstrap token
+                <input
+                  type="password"
+                  name="token"
+                  autocomplete="off"
+                  required
+                />
+              </label>
+            ) : null}
+            <button type="submit">Create admin</button>
+          </form>
+        )
+      }
+
+      {errorMessage ? <p role="alert">{errorMessage}</p> : null}
+      {successMessage ? <p role="status">{successMessage}</p> : null}
+
+      {
+        successMessage && createdEmail ? (
+          <p>
+            {adminEmails.includes(createdEmail)
+              ? "ADMIN_EMAILS already includes this address."
+              : "Add this email to ADMIN_EMAILS to access /admin/invite."}
+          </p>
+        ) : null
+      }
+    </main>
+  </body>
+</html>

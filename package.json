@@ -7,16 +7,28 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "photos:sync": "node scripts/sync-photo-metadata.mjs"
   },
   "dependencies": {
     "@astrojs/netlify": "^3.0.2",
+    "@better-auth-kit/app-invite": "^0.1.2",
     "astro": "^3.5.0",
+    "better-auth": "^1.4.18",
     "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0"
+    "date-fns-tz": "^2.0.0",
+    "drizzle-orm": "^0.44.4",
+    "pg": "^8.13.1",
+    "resend": "^6.9.1"
   },
   "devDependencies": {
+    "@types/pg": "^8.15.2",
     "autoprefixer": "^10.4.16",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.31.4",
     "postcss": "^8.4.31",
     "postcss-nesting": "^12.0.1"
   }

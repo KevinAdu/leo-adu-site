@@ -3,17 +3,19 @@
   margin-bottom: 1rem;
 }
 
-.show-photo-section p,
-.show-photo-section time {
+.show-photo-section .photo-details {
+  display: grid;
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.show-photo-section p {
-  margin-bottom: 0;
+.show-photo-section .photo-details p {
+  margin: 0;
   white-space: pre-wrap;
 }
 
-.show-photo-section time {
+.show-photo-section .photo-details time {
+  margin: 0;
   font-family: 'Proxima Nova Semibold', sans-serif;
 }
 
@@ -29,22 +31,36 @@
 @media (min-width: 768px) {
   .show-photo-section {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: repeat(4,  auto);
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-areas:
+      "image details"
+      "image details"
+      "more more"
+      "grid grid";
+    column-gap: 2.5rem;
+    row-gap: 1.5rem;
+    align-items: start;
+    margin: 0 auto 3rem;
+    max-width: 1100px;
 
     img {
-      grid-row: 1 / 3;
+      grid-area: image;
+      margin-bottom: 0;
+    }
+
+    .photo-details {
+      grid-area: details;
+      margin-bottom: 0;
+    }
+
+    h3 {
+      grid-area: more;
+      margin-top: 0;
     }
 
     .photos-grid {
-      grid-row: 4/5;
-      /* grid-column: 1 / -1; */
-      max-width: 500px;
-    }
-
-    time {
-      align-self: flex-end;
+      grid-area: grid;
+      max-width: none;
     }
   }
 }
