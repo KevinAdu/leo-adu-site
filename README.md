@@ -1,54 +1,98 @@
-# Astro Starter Kit: Basics
+# Leo Adu Site
 
-```sh
-npm create astro@latest -- --template basics
+Private family photo journal built with Astro, Drizzle, and Better Auth.
+
+## Features
+- Invite-only access gate for the entire site
+- Admin review for access requests
+- Email/password auth with invitations
+- Photo content stored in Markdown with Japanese/English support
+- Optional DeepL auto-translation for English captions
+
+## Requirements
+- Node.js 18+ (Node 20 recommended)
+- Postgres database (Supabase works)
+
+## Quick Start
+```bash
+npm install
+npm run dev
+```
+Local server runs at `http://localhost:4321`.
+
+## Environment
+Copy `.env.example` to `.env` and fill in the values.
+
+Required for local dev:
+```bash
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB_NAME"
+BETTER_AUTH_SECRET="replace-with-a-long-random-string"
+BETTER_AUTH_BASE_URL="http://localhost:4321"
+APP_URL="http://localhost:4321"
+ADMIN_EMAILS="admin@example.com"
+REQUEST_ACCESS_TOKEN="replace-with-a-secret-token"
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Optional:
+```bash
+DATABASE_SSL="true"
+ALLOW_SIGNUP="false"
+RESEND_API_KEY="re_..."
+EMAIL_FROM="Leo Adu <no-reply@example.com>"
+DEEPL_API_KEY="replace-with-your-deepl-api-key"
+DEEPL_API_URL="https://api-free.deepl.com/v2/translate"
+BOOTSTRAP_ADMIN_TOKEN="replace-with-a-one-time-token"
+```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Notes:
+- If you use Supabase, set `DATABASE_SSL="true"` and do not include `sslmode=require` in the URL.
+- Restart the dev server after changing `.env`.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## Database
+Apply schema (development):
+```bash
+npm run db:push
+```
 
-## 🚀 Project Structure
+## Auth + Invite Flow
+- `/invite-only` is the landing page for unauthenticated users.
+- `/request-access?token=...` is the request form (token gated).
+- `/admin/requests` shows pending requests and lets admins approve/deny.
+- Approve sends an invite email with `/invite/<id>`.
+- `/admin/invite` lets admins send invites directly.
+- `/bootstrap-admin` creates the first user (disabled if users exist).
 
-Inside of your Astro project, you'll see the following folders and files:
-
+## Photo Content
+Photos live in:
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/content/photos/ja
+src/content/photos/en
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Sync metadata and auto-translate:
+```bash
+npm run photos:sync
+node scripts/sync-photo-metadata.mjs --only 2025-07-12_he-looks-confy.md
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Scripts
+```bash
+npm run dev
+npm run build
+npm run preview
+npm run db:push
+npm run db:migrate
+npm run photos:sync
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## CI: Auto-sync Photos
+Workflow: `.github/workflows/photos-sync.yml`
+- Runs on push to `master`
+- Auto-commits any changes from `photos:sync`
 
-## 🧞 Commands
+Set these GitHub Actions secrets:
+```text
+DEEPL_API_KEY
+DEEPL_API_URL
+```
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

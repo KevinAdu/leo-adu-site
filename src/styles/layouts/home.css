@@ -1,5 +1,13 @@
 .home-layout {
-  section + a {
+  .home-section-title {
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: var(--h5-font-size);
+    color: var(--color-brown);
+  }
+
+  .section-link {
     display: inline-block;
     width: 100%;
     text-align: right;
@@ -27,6 +35,11 @@
       grid-area: photos;
       margin-bottom: 0;
       gap: 0.75rem;
+
+      .home-section-title,
+      .section-link {
+        grid-column: 1 / -1;
+      }
     }
     
     .albums-grid {
@@ -36,9 +49,8 @@
       gap: 0.75rem;
       align-content: start;
 
-      a {
-        display: inline-block;
-        justify-self: end;
+      .home-section-title,
+      .section-link {
         grid-column: 1 / -1;
       }
       .compact {
@@ -47,7 +59,7 @@
       }
     }
 
-    .photos-grid a {
+    .section-link {
       grid-column: 1 / -1;
       justify-self: end;
     }

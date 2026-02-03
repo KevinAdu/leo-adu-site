@@ -40,20 +40,22 @@ const ALBUM_LIMIT = 2;
   <main class="home-layout">
     <Hero />
     <section class="photos-grid" aria-label="Photo Post List">
+      <h2 class="home-section-title">{i18n('home.recent_photos')}</h2>
       {allPosts
         .sort((a, b) => a.data['publish-date'] > b.data['publish-date'] ? -1 : 1 )
         .slice(0, PHOTO_LIMIT)
         .map((p) => <PostPreview post={p} />)
       }
-      <a href="/en/all-photos">{i18n('more_photos')}</a>
+      <a class="section-link" href="/en/all-photos">{i18n('more_photos')}</a>
     </section>
     <section class="albums-grid" aria-label="Albums List">
+      <h2 class="home-section-title">{i18n('home.recent_albums')}</h2>
       {albumInfo
         .sort((a, b) => a.createdDate > b.createdDate ? -1 : 1 )
         .slice(0, ALBUM_LIMIT)
         .map((album) => <Album compact albumInfo={album} />)
       }
-      <a href="/en/albums">{i18n('more_albums')}</a>
+      <a class="section-link" href="/en/albums">{i18n('more_albums')}</a>
     </section>
   </main>		
 </Layout/>

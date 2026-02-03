@@ -1,5 +1,5 @@
 ---
-title: He looks confy
+title: He looks comfy
 photo: https://res.cloudinary.com/dz8vyplpm/image/upload/v1752289590/IMG_0191_cjnbhh.jpg
 caption: |-
   気持ち良そうにお昼寝。

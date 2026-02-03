@@ -1,0 +1,35 @@
+name: photos-sync
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  sync:
+    if: "!contains(github.event.head_commit.message, 'chore: sync photos')"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Run photo sync
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+          DEEPL_API_URL: ${{ secrets.DEEPL_API_URL }}
+        run: npm run photos:sync
+      - name: Commit changes if needed
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: sync photos"
+          git push
