@@ -1,0 +1,61 @@
+---
+import { useTranslations } from "../../i18n/utils";
+
+const acceptLanguage = Astro.request.headers.get("accept-language") ?? "";
+const prefersJapanese = acceptLanguage.toLowerCase().includes("ja");
+const lang = prefersJapanese ? "ja" : "en";
+const i18n = useTranslations(lang);
+const title = i18n("request_success.title");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f7f3ea;
+        color: #2b2b2b;
+      }
+      main {
+        max-width: 720px;
+        margin: 12vh auto;
+        padding: 2rem;
+        background: #fffdf7;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+      h1 {
+        margin: 0 0 0.5rem;
+      }
+      p {
+        margin: 0.5rem 0 0;
+        color: #6b6558;
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+        padding: 0.7rem 1rem;
+        border-radius: 6px;
+        background: #7a5d2e;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{i18n("request_success.title")}</h1>
+      <p>{i18n("request_success.body")}</p>
+      <a href="/invite-only">{i18n("request_success.cta")}</a>
+    </main>
+  </body>
+</html>

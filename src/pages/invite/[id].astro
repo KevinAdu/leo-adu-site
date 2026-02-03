@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { accessRequest } from "../../db/schema";
 import { useTranslations } from "../../i18n/utils";
 import { db } from "../../lib/db";
+import inviteScript from "../../scripts/invite.ts?url";
 
 const { id } = Astro.params;
 
@@ -34,7 +35,14 @@ const title = i18n("invite.title");
   <body>
     <main>
       <h1>{title}</h1>
-      <form id="invite-form" data-invitation-id={id}>
+      <form
+        id="invite-form"
+        data-invitation-id={id}
+        data-missing-id={i18n("invite.error_missing_id")}
+        data-password-mismatch={i18n("invite.error_password_mismatch")}
+        data-failed={i18n("invite.error_failed")}
+        data-success={i18n("invite.success")}
+      >
         <label>
           {i18n("invite.first_name")}
           <input
@@ -110,75 +118,6 @@ const title = i18n("invite.title");
       <p id="invite-success" role="status"></p>
     </main>
 
-    <script type="module">
-      import { authClient } from "/src/lib/auth-client";
-
-      const form = document.getElementById("invite-form");
-      const errorEl = document.getElementById("invite-error");
-      const successEl = document.getElementById("invite-success");
-      const messages = {
-        missingId: ${JSON.stringify(i18n("invite.error_missing_id"))},
-        passwordMismatch: ${JSON.stringify(i18n("invite.error_password_mismatch"))},
-        failed: ${JSON.stringify(i18n("invite.error_failed"))},
-        success: ${JSON.stringify(i18n("invite.success"))},
-      };
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        errorEl.textContent = "";
-        successEl.textContent = "";
-
-        const formData = new FormData(form);
-        const invitationId = form.dataset.invitationId;
-        const firstName = String(formData.get("firstName") || "");
-        const lastName = String(formData.get("lastName") || "");
-        const email = String(formData.get("email") || "");
-        const language = String(formData.get("language") || "en");
-        const password = String(formData.get("password") || "");
-        const confirmPassword = String(formData.get("confirmPassword") || "");
-
-        if (!invitationId) {
-          errorEl.textContent = messages.missingId;
-          return;
-        }
-
-        if (password !== confirmPassword) {
-          errorEl.textContent = messages.passwordMismatch;
-          return;
-        }
-
-        const { error } = await authClient.acceptInvitation({
-          invitationId,
-          name: `${firstName} ${lastName}`.trim() || undefined,
-          email: email || undefined,
-          password,
-          firstName,
-          lastName,
-          language,
-        });
-
-        if (error) {
-          errorEl.textContent = error.message || messages.failed;
-          return;
-        }
-
-        const profileResponse = await fetch("/api/profile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ firstName, lastName, language }),
-        });
-
-        if (!profileResponse.ok && profileResponse.status === 401) {
-          await authClient.signIn.email({
-            email,
-            password,
-            callbackURL: "/",
-          });
-        }
-
-        successEl.textContent = messages.success;
-        window.location.href = "/";
-      });
-    </script>
+    <script type="module" src={inviteScript}></script>
   </body>
 </html>

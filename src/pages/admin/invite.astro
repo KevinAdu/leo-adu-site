@@ -1,4 +1,6 @@
 ---
+import adminInviteScript from "../../scripts/admin-invite.ts?url";
+
 const title = "Invite users";
 ---
 
@@ -15,7 +17,11 @@ const title = "Invite users";
       <p>
         <a href="/admin/requests">View access requests</a>
       </p>
-      <form id="invite-form">
+      <form
+        id="invite-form"
+        data-success="Invite sent."
+        data-failed="Invite failed."
+      >
         <label>
           Email
           <input type="email" name="email" autocomplete="email" required />
@@ -26,31 +32,6 @@ const title = "Invite users";
       <p id="invite-success" role="status"></p>
     </main>
 
-    <script type="module">
-      import { authClient } from "/src/lib/auth-client";
-
-      const form = document.getElementById("invite-form");
-      const errorEl = document.getElementById("invite-error");
-      const successEl = document.getElementById("invite-success");
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        errorEl.textContent = "";
-        successEl.textContent = "";
-
-        const formData = new FormData(form);
-        const email = String(formData.get("email") || "");
-
-        const { error } = await authClient.inviteUser({ email });
-
-        if (error) {
-          errorEl.textContent = error.message || "Invite failed.";
-          return;
-        }
-
-        successEl.textContent = "Invite sent.";
-        form.reset();
-      });
-    </script>
+    <script type="module" src={adminInviteScript}></script>
   </body>
 </html>

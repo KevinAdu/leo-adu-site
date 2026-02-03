@@ -172,6 +172,7 @@ const title = i18n("request.title");
           }
 
           statusEl.textContent = (data && data.message) || messages.success;
+          window.location.assign("/request-access/success");
         } catch (error) {
           errorEl.textContent = messages.error;
         } finally {

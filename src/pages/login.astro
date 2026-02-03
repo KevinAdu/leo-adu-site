@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import loginScript from "../scripts/login.ts?url";
 
 const title = "Sign in";
 const description = "Sign in to access Leo Adu’s private photo journal.";
@@ -51,38 +52,6 @@ const postAttempted = Astro.request.method === "POST";
       </section>
     </main>
 
-    <script type="module">
-      import { authClient } from "/src/lib/auth-client";
-
-      const form = document.getElementById("login-form");
-      const errorEl = document.getElementById("login-error");
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        errorEl.textContent = "";
-
-        const formData = new FormData(form);
-        const email = String(formData.get("email") || "");
-        const password = String(formData.get("password") || "");
-
-        const { data, error } = await authClient.signIn.email({
-          email,
-          password,
-          callbackURL: "/",
-        });
-
-        if (error) {
-          errorEl.textContent = error.message || "Sign-in failed.";
-          return;
-        }
-
-        if (data?.url) {
-          window.location.href = data.url;
-          return;
-        }
-
-        window.location.href = "/";
-      });
-    </script>
+    <script type="module" src={loginScript}></script>
   </body>
 </html>

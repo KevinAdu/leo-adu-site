@@ -58,6 +58,8 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
+  const wantsHtml = (request.headers.get("accept") ?? "").includes("text/html");
+
   const body = (await parseBody(request)) as Record<string, string>;
   const token = String(body.token || "");
   if (token !== requestToken) {
@@ -85,6 +87,9 @@ export const POST: APIRoute = async ({ request }) => {
     .limit(1);
 
   if (existing.length && existing[0].status === "pending") {
+    if (wantsHtml) {
+      return Response.redirect("/request-access/success", 303);
+    }
     return new Response(
       JSON.stringify({ message: "Request already submitted." }),
       { status: 200 },
@@ -100,9 +105,12 @@ export const POST: APIRoute = async ({ request }) => {
     status: "pending",
   });
 
+  if (wantsHtml) {
+    return Response.redirect("/request-access/success", 303);
+  }
+
   return new Response(
     JSON.stringify({ message: "Request submitted. Awaiting approval." }),
     { status: 200 },
   );
 };
-
