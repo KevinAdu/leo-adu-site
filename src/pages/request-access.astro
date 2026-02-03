@@ -88,7 +88,14 @@ const title = i18n("request.title");
     <main>
       <h1>{i18n("request.title")}</h1>
       <p class="muted">{i18n("request.subtitle")}</p>
-      <form id="request-form" novalidate>
+      <form
+        id="request-form"
+        method="post"
+        action="/api/access-requests"
+        novalidate
+        data-success-message={i18n("request.success")}
+        data-error-message={i18n("request.error")}
+      >
         <label>
           {i18n("request.first_name")}
           <input type="text" name="firstName" autocomplete="given-name" required />
@@ -123,11 +130,15 @@ const title = i18n("request.title");
       const form = document.getElementById("request-form");
       const statusEl = document.getElementById("request-status");
       const errorEl = document.getElementById("request-error");
-      const submitButton = form?.querySelector('button[type="submit"]');
-      const messages = {JSON.stringify({
-        success: i18n("request.success"),
-        error: i18n("request.error"),
-      })};
+      if (!form) {
+        console.error("Request access form not found.");
+        return;
+      }
+      const submitButton = form.querySelector('button[type="submit"]');
+      const messages = {
+        success: form.dataset.successMessage || "Request submitted.",
+        error: form.dataset.errorMessage || "Request failed.",
+      };
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -147,14 +158,21 @@ const title = i18n("request.title");
             body: JSON.stringify(payload),
           });
 
-          const data = await response.json().catch(() => ({}));
+          const contentType = response.headers.get("content-type") || "";
+          let data = null;
+          if (contentType.includes("application/json")) {
+            data = await response.json().catch(() => null);
+          } else {
+            const text = await response.text().catch(() => "");
+            data = text ? { error: text } : null;
+          }
 
           if (!response.ok) {
-            errorEl.textContent = data?.error || messages.error;
+            errorEl.textContent = (data && data.error) || messages.error;
             return;
           }
 
-          statusEl.textContent = data?.message || messages.success;
+          statusEl.textContent = (data && data.message) || messages.success;
         } catch (error) {
           errorEl.textContent = messages.error;
         } finally {
