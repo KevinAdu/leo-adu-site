@@ -8,7 +8,7 @@ const title = "Bootstrap admin";
 const bootstrapToken = import.meta.env.BOOTSTRAP_ADMIN_TOKEN;
 const adminEmails = (import.meta.env.ADMIN_EMAILS ?? "")
   .split(",")
-  .map((email) => email.trim().toLowerCase())
+  .map((email: string) => email.trim().toLowerCase())
   .filter(Boolean);
 
 let hasUsers = false;

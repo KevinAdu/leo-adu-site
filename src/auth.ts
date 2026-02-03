@@ -1,4 +1,4 @@
-import { appInvite } from "@better-auth-kit/app-invite";
+import appInvitePkg from "@better-auth-kit/app-invite";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { sendEmail } from "./lib/email";
@@ -13,6 +13,8 @@ export const createAuth = (options: CreateAuthOptions = {}) => {
     .split(",")
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
+
+  const { appInvite } = appInvitePkg;
 
   const allowSignUp =
     options.allowSignUp ?? import.meta.env.ALLOW_SIGNUP === "true";
@@ -41,26 +43,26 @@ export const createAuth = (options: CreateAuthOptions = {}) => {
 
           return adminEmails.includes(user.email.toLowerCase());
         },
-      sendInvitationEmail: async (data) => {
-        const inviteUrl = new URL(`/invite/${data.id}`, appUrl).toString();
-        const inviterName = data.inviter.name ?? data.inviter.email;
-        const invitationTarget = data.name ?? "the app";
-        const subject = `${inviterName} invited you to ${invitationTarget}`;
-        const html = `<p>${inviterName} invited you to ${invitationTarget}.</p>
+        sendInvitationEmail: async (data) => {
+          const inviteUrl = new URL(`/invite/${data.id}`, appUrl).toString();
+          const inviterName = data.inviter.name ?? data.inviter.email;
+          const invitationTarget = data.name ?? "the app";
+          const subject = `${inviterName} invited you to ${invitationTarget}`;
+          const html = `<p>${inviterName} invited you to ${invitationTarget}.</p>
 <p><a href="${inviteUrl}">Accept the invite</a></p>`;
-        const text = `${inviterName} invited you to ${invitationTarget}. Accept: ${inviteUrl}`;
+          const text = `${inviterName} invited you to ${invitationTarget}. Accept: ${inviteUrl}`;
 
           await sendEmail({
             to: data.email,
             subject,
             html,
             text,
-        });
-      },
-      autoSignIn: true,
-    }),
-  ],
-});
+          });
+        },
+        autoSignIn: true,
+      }),
+    ],
+  });
 };
 
 export const auth = createAuth();
