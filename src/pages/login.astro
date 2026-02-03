@@ -1,38 +1,58 @@
 ---
+import BaseHead from "../components/BaseHead.astro";
+
 const title = "Sign in";
+const description = "Sign in to access Leo Adu’s private photo journal.";
+const permalink = Astro.url.href;
+const postAttempted = Astro.request.method === "POST";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <BaseHead title={title} {description} {permalink} />
   </head>
   <body>
-    <main>
-      <h1>{title}</h1>
-      <form id="login-form">
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" required />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            autocomplete="current-password"
-            required
-          />
-        </label>
-        <button type="submit">Sign in</button>
-      </form>
-      <p id="login-error" role="alert"></p>
+    <main class="auth-layout">
+      <section class="auth-card">
+        <h1 class="h3">{title}</h1>
+        <p class="auth-subtitle">
+          Enter your email and password to continue.
+        </p>
+        <form id="login-form" class="auth-form" method="post" action="/login">
+          <label class="auth-field">
+            Email
+            <input
+              class="auth-input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </label>
+          <label class="auth-field">
+            Password
+            <input
+              class="auth-input"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required
+            />
+          </label>
+          <button class="auth-button" type="submit">Sign in</button>
+        </form>
+        {postAttempted ? (
+          <p class="auth-error" role="alert">
+            JavaScript is required to sign in.
+          </p>
+        ) : null}
+        <p id="login-error" class="auth-error" role="alert"></p>
+      </section>
     </main>
 
     <script type="module">
-      import { authClient } from "../lib/auth-client";
+      import { authClient } from "/src/lib/auth-client";
 
       const form = document.getElementById("login-form");
       const errorEl = document.getElementById("login-error");

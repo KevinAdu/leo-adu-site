@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { auth } from "./src/auth";
+import { auth } from "./auth";
 
 const adminEmails = (import.meta.env.ADMIN_EMAILS ?? "")
   .split(",")
@@ -22,7 +22,7 @@ const isPublicAsset = (pathname: string) => {
     return true;
   }
 
-  return /\\.(css|js|mjs|map|png|jpg|jpeg|gif|webp|svg|ico|woff2?|ttf)$/.test(
+  return /\.(css|js|mjs|map|png|jpg|jpeg|gif|webp|svg|ico|woff2?|ttf)$/.test(
     pathname,
   );
 };
@@ -50,9 +50,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect("/invite-only");
   }
 
-  const isProtected = protectedPaths.some((path) =>
-    pathname.startsWith(path),
-  );
+  const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
 
   if (
     isProtected &&
