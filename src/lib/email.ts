@@ -17,7 +17,7 @@ const getResend = () => {
 };
 
 type EmailPayload = {
-  to: string;
+  to: string | string[];
   subject: string;
   html: string;
   text?: string;

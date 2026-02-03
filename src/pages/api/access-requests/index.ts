@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { desc, eq } from "drizzle-orm";
 import { auth } from "../../../auth";
 import { db } from "../../../lib/db";
+import { sendEmail } from "../../../lib/email";
 import { accessRequest } from "../../../db/schema";
 
 const adminEmails = (import.meta.env.ADMIN_EMAILS ?? "")
@@ -10,6 +11,7 @@ const adminEmails = (import.meta.env.ADMIN_EMAILS ?? "")
   .filter(Boolean);
 
 const requestToken = import.meta.env.REQUEST_ACCESS_TOKEN ?? "";
+const appUrl = import.meta.env.APP_URL ?? "";
 
 const parseBody = async (request: Request) => {
   const contentType = request.headers.get("content-type") ?? "";
@@ -104,6 +106,34 @@ export const POST: APIRoute = async ({ request }) => {
     language,
     status: "pending",
   });
+
+  if (adminEmails.length > 0) {
+    const targetUrl =
+      appUrl || new URL(request.url).origin;
+    const reviewUrl = `${targetUrl}/admin/requests`;
+    const subject = `New access request from ${firstName} ${lastName}`;
+    const html = `<p>A new access request was submitted.</p>
+<p><strong>Name:</strong> ${firstName} ${lastName}</p>
+<p><strong>Email:</strong> ${email}</p>
+<p><strong>Language:</strong> ${language}</p>
+<p><a href="${reviewUrl}">Review access requests</a></p>`;
+    const text = `New access request\nName: ${firstName} ${lastName}\nEmail: ${email}\nLanguage: ${language}\nReview: ${reviewUrl}`;
+
+    try {
+      if (import.meta.env.RESEND_API_KEY && import.meta.env.EMAIL_FROM) {
+        await sendEmail({
+          to: adminEmails,
+          subject,
+          html,
+          text,
+        });
+      } else {
+        console.warn("Email not sent: RESEND_API_KEY or EMAIL_FROM not set.");
+      }
+    } catch (error) {
+      console.error("Failed to send access request email:", error);
+    }
+  }
 
   if (wantsHtml) {
     return Response.redirect("/request-access/success", 303);
