@@ -1,6 +1,5 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import loginScript from "../scripts/login.ts?url";
 
 const title = "Sign in";
 const description = "Sign in to access Leo Adu’s private photo journal.";
@@ -52,6 +51,51 @@ const postAttempted = Astro.request.method === "POST";
       </section>
     </main>
 
-    <script type="module" src={loginScript}></script>
+    <script>
+      const form = document.getElementById("login-form");
+      const errorEl = document.getElementById("login-error");
+
+      if (form) {
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (errorEl) {
+            errorEl.textContent = "";
+          }
+
+          const formData = new FormData(form);
+          const email = String(formData.get("email") || "");
+          const password = String(formData.get("password") || "");
+
+          try {
+            const response = await fetch("/api/auth/sign-in/email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({ email, password, callbackURL: "/" }),
+            });
+
+            const data = await response.json().catch(() => null);
+
+            if (!response.ok) {
+              if (errorEl) {
+                errorEl.textContent = (data && data.message) || "Sign-in failed.";
+              }
+              return;
+            }
+
+            if (data && data.url) {
+              window.location.href = data.url;
+              return;
+            }
+
+            window.location.href = "/";
+          } catch (error) {
+            if (errorEl) {
+              errorEl.textContent = "Sign-in failed.";
+            }
+          }
+        });
+      }
+    </script>
   </body>
 </html>

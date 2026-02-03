@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { accessRequest } from "../../db/schema";
 import { useTranslations } from "../../i18n/utils";
 import { db } from "../../lib/db";
-import inviteScript from "../../scripts/invite.ts?url";
 
 const { id } = Astro.params;
 
@@ -30,6 +29,7 @@ const title = i18n("invite.title");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>
@@ -118,6 +118,105 @@ const title = i18n("invite.title");
       <p id="invite-success" role="status"></p>
     </main>
 
-    <script type="module" src={inviteScript}></script>
+    <script>
+      const form = document.getElementById("invite-form");
+      const errorEl = document.getElementById("invite-error");
+      const successEl = document.getElementById("invite-success");
+
+      if (!form) {
+        console.error("Invite form not found.");
+      } else {
+        const messages = {
+          missingId: form.dataset.missingId || "Missing invitation id.",
+          passwordMismatch: form.dataset.passwordMismatch || "Passwords do not match.",
+          failed: form.dataset.failed || "Invite acceptance failed.",
+          success: form.dataset.success || "Invite accepted.",
+        };
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (errorEl) {
+            errorEl.textContent = "";
+          }
+          if (successEl) {
+            successEl.textContent = "";
+          }
+
+          const formData = new FormData(form);
+          const invitationId = form.dataset.invitationId;
+          const firstName = String(formData.get("firstName") || "");
+          const lastName = String(formData.get("lastName") || "");
+          const email = String(formData.get("email") || "");
+          const language = String(formData.get("language") || "en");
+          const password = String(formData.get("password") || "");
+          const confirmPassword = String(formData.get("confirmPassword") || "");
+
+          if (!invitationId) {
+            if (errorEl) {
+              errorEl.textContent = messages.missingId;
+            }
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            if (errorEl) {
+              errorEl.textContent = messages.passwordMismatch;
+            }
+            return;
+          }
+
+          try {
+            const response = await fetch("/api/auth/accept-invitation", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({
+                invitationId,
+                name: `${firstName} ${lastName}`.trim() || undefined,
+                email: email || undefined,
+                password,
+                firstName,
+                lastName,
+                language,
+              }),
+            });
+
+            const data = await response.json().catch(() => null);
+
+            if (!response.ok) {
+              if (errorEl) {
+                errorEl.textContent = (data && data.message) || messages.failed;
+              }
+              return;
+            }
+
+            const profileResponse = await fetch("/api/profile", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({ firstName, lastName, language }),
+            });
+
+            if (!profileResponse.ok && profileResponse.status === 401) {
+              await fetch("/api/auth/sign-in/email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ email, password, callbackURL: "/" }),
+              });
+            }
+
+            if (successEl) {
+              successEl.textContent = messages.success;
+            }
+            window.location.href = "/";
+          } catch (error) {
+            if (errorEl) {
+              errorEl.textContent = messages.failed;
+            }
+          }
+        });
+      }
+    </script>
   </body>
 </html>

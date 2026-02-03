@@ -1,6 +1,4 @@
 ---
-import adminInviteScript from "../../scripts/admin-invite.ts?url";
-
 const title = "Invite users";
 ---
 
@@ -9,6 +7,7 @@ const title = "Invite users";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>
@@ -32,6 +31,59 @@ const title = "Invite users";
       <p id="invite-success" role="status"></p>
     </main>
 
-    <script type="module" src={adminInviteScript}></script>
+    <script>
+      const form = document.getElementById("invite-form");
+      const errorEl = document.getElementById("invite-error");
+      const successEl = document.getElementById("invite-success");
+
+      if (!form) {
+        console.error("Admin invite form not found.");
+      } else {
+        const messages = {
+          success: form.dataset.success || "Invite sent.",
+          failed: form.dataset.failed || "Invite failed.",
+        };
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (errorEl) {
+            errorEl.textContent = "";
+          }
+          if (successEl) {
+            successEl.textContent = "";
+          }
+
+          const formData = new FormData(form);
+          const email = String(formData.get("email") || "");
+
+          try {
+            const response = await fetch("/api/auth/invite-user", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json().catch(() => null);
+
+            if (!response.ok) {
+              if (errorEl) {
+                errorEl.textContent = (data && data.message) || messages.failed;
+              }
+              return;
+            }
+
+            if (successEl) {
+              successEl.textContent = messages.success;
+            }
+            form.reset();
+          } catch (error) {
+            if (errorEl) {
+              errorEl.textContent = messages.failed;
+            }
+          }
+        });
+      }
+    </script>
   </body>
 </html>
