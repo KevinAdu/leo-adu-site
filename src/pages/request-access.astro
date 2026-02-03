@@ -132,15 +132,14 @@ const title = i18n("request.title");
       const errorEl = document.getElementById("request-error");
       if (!form) {
         console.error("Request access form not found.");
-        return;
-      }
-      const submitButton = form.querySelector('button[type="submit"]');
-      const messages = {
-        success: form.dataset.successMessage || "Request submitted.",
-        error: form.dataset.errorMessage || "Request failed.",
-      };
+      } else {
+        const submitButton = form.querySelector('button[type="submit"]');
+        const messages = {
+          success: form.dataset.successMessage || "Request submitted.",
+          error: form.dataset.errorMessage || "Request failed.",
+        };
 
-      form.addEventListener("submit", async (event) => {
+        form.addEventListener("submit", async (event) => {
         event.preventDefault();
         statusEl.textContent = "";
         errorEl.textContent = "";
@@ -181,7 +180,8 @@ const title = i18n("request.title");
             submitButton.removeAttribute("aria-busy");
           }
         }
-      });
+        });
+      }
     </script>
   </body>
 </html>
