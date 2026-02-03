@@ -16,3 +16,19 @@
 - Decide the weekly window timezone (e.g., Asia/Tokyo) and use `publish-date` for filtering.
 - Render a lightweight HTML email with thumbnails + links and send via Resend/SendGrid/Postmark.
 - Store config in env vars: email provider key, sender, recipients list, timezone.
+
+## GitHub Issues (Open)
+- Use DeepL API to auto fill out English posts. (#52)
+- Fix issue which prevents uploading of photos. (#50)
+- Mark photos which arent translated in CMS page. (#49)
+- Automatically copy over title and caption to English translation when first uploaded. (#48)
+- Add pagination to all photos page. (#47)
+- Add pagination to Netlify CMS page. (#46)
+- Update Netlify CMS. (#45)
+- Update Astro. (#44)
+- Add favicon. (#40)
+- Add correct meta data for search results for each page. (#37)
+- Add splash page when opening home page with logo. (#33)
+- Add Share button and modal to Show Photo page. (#25)
+- Add Skeletons to pages with images. (#17)
+- Add About Us page. (#10)
