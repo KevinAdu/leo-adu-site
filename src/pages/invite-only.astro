@@ -9,36 +9,49 @@ const title = "Invite-only site";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-        background: #f7f3ea;
-        color: #2b2b2b;
-      }
-      main {
-        max-width: 720px;
-        margin: 10vh auto;
-        padding: 2rem;
-        background: #fffdf7;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      }
-      h1 {
-        margin-top: 0;
-      }
-      p {
-        line-height: 1.7;
-      }
-      a {
-        color: #7a5d2e;
-        font-weight: 600;
-      }
-      .actions {
-        margin-top: 1.5rem;
-      }
-    </style>
-  </head>
+  </head><button id="error-button">Throw test error</button>
+  <script>
+    function handleClick() {
+      throw new Error("This is a test error");
+    }
+    document
+      .querySelector("#error-button")
+      .addEventListener("click", handleClick);
+  </script>
+  <style>
+    body {
+      margin: 0;
+      font-family:
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        sans-serif;
+      background: #f7f3ea;
+      color: #2b2b2b;
+    }
+    main {
+      max-width: 720px;
+      margin: 10vh auto;
+      padding: 2rem;
+      background: #fffdf7;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      margin-top: 0;
+    }
+    p {
+      line-height: 1.7;
+    }
+    a {
+      color: #7a5d2e;
+      font-weight: 600;
+    }
+    .actions {
+      margin-top: 1.5rem;
+    }
+  </style>
+
   <body>
     <main>
       <h1>Leo Adu’s photo site is invite‑only</h1>
@@ -55,4 +68,5 @@ const title = "Invite-only site";
       </div>
     </main>
   </body>
+
 </html>
