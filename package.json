@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^3.0.2",
+    "@sentry/astro": "^10.11.0",
     "@better-auth-kit/app-invite": "^0.1.2",
     "astro": "^3.5.0",
     "better-auth": "^1.4.18",
