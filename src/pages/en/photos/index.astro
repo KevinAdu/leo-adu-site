@@ -9,16 +9,45 @@ const i18n = useTranslations(lang);
 const allPosts = await getCollection("photos", (photo) => {
   return photo.slug.startsWith("en");
 });
+const PAGE_SIZE = 30;
+const requestedPage = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
+const safeRequestedPage = Number.isNaN(requestedPage) || requestedPage < 1 ? 1 : requestedPage;
+const sortedPosts = allPosts.sort((a, b) => (a.data["publish-date"] > b.data["publish-date"] ? -1 : 1));
+const totalPages = Math.max(1, Math.ceil(sortedPosts.length / PAGE_SIZE));
+const currentPage = Math.min(safeRequestedPage, totalPages);
+const paginatedPosts = sortedPosts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+const hasPreviousPage = currentPage > 1;
+const hasNextPage = currentPage < totalPages;
+const getPagePath = (page: number) => (page <= 1 ? Astro.url.pathname : `${Astro.url.pathname}?page=${page}`);
 ---
 
 <Layout description="Here are all the photos we have taken so far of Leo Adu">
   <main class="all-photos-layout">
     <h2>{i18n("common.photos")}</h2>
-    <h3>Leo's life covered in photography</h3>
+    <h3>{i18n("photos.tagline")}</h3>
     <section class="photos-grid" aria-label="Photo Post List">
-      {allPosts
-        .sort((a, b) => (a.data["publish-date"] > b.data["publish-date"] ? -1 : 1))
-        .map((p) => <PostPreview post={p} />)}
+      {paginatedPosts.map((p) => <PostPreview post={p} />)}
     </section>
+    {totalPages > 1 && (
+      <nav class="photos-pagination" aria-label={i18n("pagination.label")}>
+        {hasPreviousPage ? (
+          <a class="pagination-link" href={getPagePath(currentPage - 1)} rel="prev">
+            {i18n("pagination.previous")}
+          </a>
+        ) : (
+          <span class="pagination-link pagination-link-disabled">{i18n("pagination.previous")}</span>
+        )}
+        <p class="pagination-meta">
+          {i18n("pagination.page")} {currentPage} / {totalPages}
+        </p>
+        {hasNextPage ? (
+          <a class="pagination-link" href={getPagePath(currentPage + 1)} rel="next">
+            {i18n("pagination.next")}
+          </a>
+        ) : (
+          <span class="pagination-link pagination-link-disabled">{i18n("pagination.next")}</span>
+        )}
+      </nav>
+    )}
   </main>
 </Layout>
