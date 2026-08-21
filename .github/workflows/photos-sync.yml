@@ -18,6 +18,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Run photo sync
+        id: sync
+        continue-on-error: true
         env:
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
           DEEPL_API_URL: ${{ secrets.DEEPL_API_URL }}
@@ -33,3 +35,10 @@ jobs:
           git add -A
           git commit -m "chore: sync photos"
           git push
+      - name: Verify site builds
+        run: npm run build
+      - name: Fail if photo sync left unresolved entries
+        if: steps.sync.outcome == 'failure'
+        run: |
+          echo "photos:sync could not auto-fill every photo (see 'Run photo sync' step above). Fix the listed entries in the CMS."
+          exit 1
