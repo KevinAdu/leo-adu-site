@@ -17,7 +17,7 @@ if (entry === undefined) {
   return Astro.redirect("/404");
 }
 const allPosts = await getCollection('photos', (photo) => {
-  return !photo.slug.startsWith('en')
+  return !photo.id.startsWith('en')
 });
 const selectedPhotoIndex = allPosts.findIndex((photo) => photo.id === entry.id);
 allPosts.splice(selectedPhotoIndex, 1);

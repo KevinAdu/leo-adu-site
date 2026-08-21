@@ -10,7 +10,7 @@ import { getAgeFromPublishDate } from '../helpers/age';
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
 const allPosts = await getCollection('photos', (photo) => {
-  return !photo.slug.startsWith('en')
+  return !photo.id.startsWith('en')
 });
 const ages = allPosts.map(post => getAgeFromPublishDate(post.data['publish-date']));
 const uniqueAgesSet = [ ...new Set(ages)];
@@ -58,4 +58,4 @@ const translatePath = useTranslatedPath(lang);
       <a class="section-link" href={translatePath("/albums")}>{i18n('more_albums')}</a>
     </section>
   </main>		
-</Layout/>
+</Layout>

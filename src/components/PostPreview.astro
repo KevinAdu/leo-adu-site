@@ -10,7 +10,7 @@ import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from '../helpers/cloudinar
 const lang = getLangFromUrl(Astro.url);
 const { post } = Astro.props;
 const translatePath = useTranslatedPath(lang);
-const trimmedSlug = post.slug.slice(2);
+const trimmedSlug = post.id.slice(2);
 const filename = getCloudinaryFilename(post.data.photo);
 ---
 <article class="post-preview">

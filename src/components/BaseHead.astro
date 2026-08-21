@@ -1,6 +1,6 @@
 ---
 import '../styles/index.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
 	title: string;
@@ -18,7 +18,7 @@ const { title, description, permalink, imageUrl = "/public/meta-home-image.jpeg"
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<ViewTransitions />
+<ClientRouter />
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 

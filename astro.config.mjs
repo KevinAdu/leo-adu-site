@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import netlify from "@astrojs/netlify/functions";
+import netlify from "@astrojs/netlify";
 import sentry from "@sentry/astro";
 
 const sentryIntegration = process.env.SENTRY_DSN

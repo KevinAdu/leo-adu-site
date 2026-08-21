@@ -8,7 +8,7 @@ import { getAgeFromPublishDate } from '../helpers/age';
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
 const allPosts = await getCollection('photos', (photo) => {
-  return !photo.slug.startsWith('en')
+  return !photo.id.startsWith('en')
 });
 
 const ages = allPosts.map(post => getAgeFromPublishDate(post.data['publish-date']));
@@ -35,4 +35,4 @@ console.log(uniqueAgesSet)
       {albumInfo.map((album) => <Album albumInfo={album} />)}
     </section>
   </main>		
-</Layout/>
+</Layout>

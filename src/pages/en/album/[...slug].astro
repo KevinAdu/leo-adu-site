@@ -14,7 +14,7 @@ const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
 const ageLabel = getAgeLabel(slug, lang);
 
 const albumPhotos = await getCollection("photos", (photo) => {
-  return getAgeFromPublishDate(photo.data["publish-date"]) === slug && photo.slug.startsWith('en');
+  return getAgeFromPublishDate(photo.data["publish-date"]) === slug && photo.id.startsWith('en');
 });
 
 if (albumPhotos === undefined) {

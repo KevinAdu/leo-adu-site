@@ -7,7 +7,7 @@ import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const i18n = useTranslations(lang);
 const allPosts = await getCollection("photos", (photo) => {
-  return !photo.slug.startsWith("en");
+  return !photo.id.startsWith("en");
 });
 const PAGE_SIZE = 30;
 const requestedPage = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);

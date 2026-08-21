@@ -14,10 +14,10 @@
     "photos:sync": "node scripts/sync-photo-metadata.mjs"
   },
   "dependencies": {
-    "@astrojs/netlify": "^3.0.2",
-    "@sentry/astro": "^10.11.0",
+    "@astrojs/netlify": "^8.2.3",
     "@better-auth-kit/app-invite": "^0.1.2",
-    "astro": "^3.5.0",
+    "@sentry/astro": "^10.70.0",
+    "astro": "^7.2.4",
     "better-auth": "^1.4.18",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
