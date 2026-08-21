@@ -11,7 +11,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "photos:sync": "node scripts/sync-photo-metadata.mjs"
+    "photos:sync": "node scripts/sync-photo-metadata.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.2.3",
@@ -36,6 +37,7 @@
     "autoprefixer": "^10.4.16",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.31.4",
+    "husky": "^9.1.7",
     "postcss": "^8.4.31",
     "postcss-nesting": "^12.0.1"
   }

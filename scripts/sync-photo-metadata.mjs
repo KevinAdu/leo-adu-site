@@ -243,6 +243,17 @@ async function main() {
       console.log(`- ${item.name}: ${item.reason}`);
     }
   }
+
+  const unresolved = [
+    ...failed,
+    ...skipped.filter((item) => item.reason === "missing-ja-title-caption"),
+  ];
+  if (unresolved.length) {
+    console.error(
+      `\n${unresolved.length} photo(s) are still missing a title/caption and can't be auto-filled. Fix them in the CMS before committing.`,
+    );
+    process.exitCode = 1;
+  }
 }
 
 await main();

@@ -1,0 +1,8 @@
+npm run photos:sync
+status=$?
+
+git add src/content/photos/en
+
+if [ $status -ne 0 ]; then
+  exit $status
+fi
