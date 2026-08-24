@@ -44,7 +44,7 @@ const translatePath = useTranslatedPath(lang);
       {allPosts
         .sort((a, b) => a.data['publish-date'] > b.data['publish-date'] ? -1 : 1 )
         .slice(0, PHOTO_LIMIT)
-        .map((p) => <PostPreview post={p} />)
+        .map((p, i) => <PostPreview post={p} priority={i < 3} />)
       }
       <a class="section-link" href={translatePath("/all-photos")}>{i18n('more_photos')}</a>
     </section>

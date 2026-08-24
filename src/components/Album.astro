@@ -20,7 +20,18 @@ const ageLabel = getAgeLabel(albumInfo.age, lang);
 ---
 <a href={translatePath(`/album/${albumInfo.age}`)}>
 <article class=`album ${compact && 'compact'}`>
-  <img src=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto${filename}` loading="lazy" />
+  <img
+    srcset=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/${filename} 300w,
+    ${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_600/${filename} 600w,
+    ${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_900/${filename} 900w`
+    sizes={compact ? "(min-width: 768px) 350px, 100vw" : "(min-width: 768px) 280px, 100vw"}
+    src=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_600/${filename}`
+    alt={ageLabel}
+    width="600"
+    height="300"
+    loading="lazy"
+    decoding="async"
+  />
   <h2 class="h4">{ageLabel}</h2>
   <p>{albumInfo.count}<span class=`${lang}`>{i18n('count.photos')}</span></p>
 </article>

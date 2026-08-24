@@ -2,41 +2,33 @@
 import type { CollectionEntry } from 'astro:content';
 interface Props {
   post: CollectionEntry<'photos'>;
+  priority?: boolean;
 }
 
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 import { CLOUDINARY_URL_ROOT, getCloudinaryFilename } from '../helpers/cloudinary';
 
 const lang = getLangFromUrl(Astro.url);
-const { post } = Astro.props;
+const { post, priority = false } = Astro.props;
 const translatePath = useTranslatedPath(lang);
 const trimmedSlug = post.id.slice(2);
 const filename = getCloudinaryFilename(post.data.photo);
 ---
 <article class="post-preview">
   <a href={translatePath(`/photos${trimmedSlug}`)}>
-    <picture>
-      <source 
-        media="(min-width: 150px)"
-        srcset=`${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_150/${filename} 150w, 
-        ${CLOUDINARY_URL_ROOT}/ar_2:1,c_fill,g_face/f_auto/q_auto/c_scale,w_300/${filename} 300w`
-        sizes="100vw"
-      />
-      <source 
-        media="(min-width: 400px)"
-        srcset=`${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_400/${filename} 400w, 
-        ${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_800/${filename} 800w`
-        sizes="100vw"
-      />
-      <img
-        srcset=`${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/${filename} 400w, 
-        ${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/${filename} 150w`
-        src=`${CLOUDINARY_URL_ROOT}/f_auto/q_auto/c_scale,w_400/${filename}`
-        alt={post.data.title}
-        sizes="100vw" 
-        loading="lazy"
-        decoding="async"
-      />   
-    </picture>
+    <img
+      srcset=`${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_150/${filename} 150w,
+      ${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_300/${filename} 300w,
+      ${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_600/${filename} 600w,
+      ${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_900/${filename} 900w`
+      sizes="(min-width: 768px) 316px, 33vw"
+      src=`${CLOUDINARY_URL_ROOT}/ar_1:1,c_thumb,g_face/f_auto/q_auto/c_scale,w_400/${filename}`
+      alt={post.data.title}
+      width="400"
+      height="400"
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+      decoding="async"
+    />
   </a>
 </article>
