@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostPreview from '../../components/PostPreview.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const i18n = useTranslations(lang);
+const allPosts = await getCollection('photos', (photo) => {
+  return photo.id.startsWith('en')
+});
+const recentPosts = allPosts
+  .sort((a, b) => a.data['publish-date'] > b.data['publish-date'] ? -1 : 1)
+  .slice(0, 2);
+---
+
+<Layout description="A little bit about us and why we started this photo journal of Leo's life.">
+  <main class="about-layout">
+    <h2>{i18n('about.title')}</h2>
+    <h3>{i18n('about.tagline')}</h3>
+    <p>{i18n('about.intro_1')}</p>
+    <p>{i18n('about.intro_2')}</p>
+    <section class="photos-grid" aria-label="Featured Photos">
+      {recentPosts.map((p, i) => <PostPreview post={p} priority={i < 2} />)}
+    </section>
+  </main>
+</Layout>

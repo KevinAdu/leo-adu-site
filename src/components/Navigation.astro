@@ -19,6 +19,9 @@ const translatePath = useTranslatedPath(lang);
       <a href={translatePath('/albums')} class={Astro.url.pathname === "/albums" ? 'active' : ''}>{i18n('common.albums')}</a>
     </li>
     <li>
+      <a href={translatePath('/about')} class={Astro.url.pathname === "/about" ? 'active' : ''}>{i18n('common.about')}</a>
+    </li>
+    <li>
       <a target="_blank" href="https://www.amazon.co.jp/hz/wishlist/ls/14YLPV1W3RU3B/ref=nav_wishlist_lists_2">{i18n('tabs.wishlist')}</a>
     </li>
   </ul>
